@@ -13,16 +13,27 @@ export const title = tv({
       foreground: "dark:from-[#FFFFFF] dark:to-[#4B4B4B]",
     },
     size: {
-      sm: "text-3xl lg:text-4xl",
-      md: "text-[2.3rem] lg:text-5xl",
-      lg: "text-4xl lg:text-6xl",
+      xs: "text-xl md:text-2xl",                // very small (e.g. captions, small headers)
+      sm: "text-2xl md:text-3xl lg:text-4xl",   // small headers
+      md: "text-3xl md:text-4xl lg:text-5xl",   // medium headers
+      lg: "text-4xl md:text-5xl lg:text-6xl",   // large headers
+      xl: "text-5xl md:text-6xl lg:text-7xl",   // hero headers
+      "2xl": "text-6xl md:text-7xl lg:text-8xl" // extra large / splash hero
     },
     fullWidth: {
       true: "w-full block",
     },
+    font: {
+      light: "font-light",
+      normal: "font-normal",
+      medium: "font-medium",
+      semibold: "font-semibold",
+      bold: "font-bold",
+      black: "font-black",
+    },
   },
   defaultVariants: {
-    size: "md",
+    size: "sm",
   },
   compoundVariants: [
     {

@@ -3,7 +3,6 @@ import { Link } from "@heroui/link";
 import { Input } from "@heroui/input";
 import {
   Navbar as HeroUINavbar,
-  NavbarBrand,
   NavbarContent,
   NavbarItem,
   NavbarMenuToggle,
@@ -21,7 +20,7 @@ import {
   DiscordIcon,
   SearchIcon,
 } from "@/components/icons";
-import { Logo } from "@/components/icons";
+// import { Logo } from "@/components/icons";
 
 export const Navbar = () => {
   const searchInput = (
@@ -48,7 +47,7 @@ export const Navbar = () => {
   return (
     <HeroUINavbar maxWidth="xl" position="sticky">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
-        <NavbarBrand className="gap-3 max-w-fit">
+        {/* <NavbarBrand className="gap-3 max-w-fit">
           <Link
             className="flex justify-start items-center gap-1"
             color="foreground"
@@ -57,7 +56,7 @@ export const Navbar = () => {
             <Logo />
             <p className="font-bold text-inherit">ACME</p>
           </Link>
-        </NavbarBrand>
+        </NavbarBrand> */}
         <div className="hidden lg:flex gap-4 justify-start ml-2">
           {siteConfig.navItems.map((item) => (
             <NavbarItem key={item.href}>
@@ -81,12 +80,12 @@ export const Navbar = () => {
         justify="end"
       >
         <NavbarItem className="hidden sm:flex gap-2">
-          <Link isExternal href={siteConfig.links.twitter} title="Twitter">
+          {/* <Link isExternal href={siteConfig.links.twitter} title="Twitter">
             <TwitterIcon className="text-default-500" />
-          </Link>
-          <Link isExternal href={siteConfig.links.discord} title="Discord">
+          </Link> */}
+          {/* <Link isExternal href={siteConfig.links.discord} title="Discord">
             <DiscordIcon className="text-default-500" />
-          </Link>
+          </Link> */}
           <Link isExternal href={siteConfig.links.github} title="GitHub">
             <GithubIcon className="text-default-500" />
           </Link>
