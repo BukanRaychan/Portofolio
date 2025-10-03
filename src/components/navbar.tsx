@@ -15,9 +15,9 @@ import clsx from "clsx";
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import {
-  TwitterIcon,
+  // TwitterIcon,
   GithubIcon,
-  DiscordIcon,
+  // DiscordIcon,
   SearchIcon,
 } from "@/components/icons";
 // import { Logo } from "@/components/icons";
