@@ -20,9 +20,13 @@ import {
   // DiscordIcon,
   SearchIcon,
 } from "@/components/icons";
+import { useState } from "react";
 // import { Logo } from "@/components/icons";
 
 export const Navbar = () => {
+  const [activeBar, _] = useState(window.location.pathname);
+
+  
   const searchInput = (
     <Input
       aria-label="Search"
@@ -45,7 +49,7 @@ export const Navbar = () => {
   );
 
   return (
-    <HeroUINavbar maxWidth="xl" position="sticky">
+    <HeroUINavbar maxWidth="xl" position="sticky" isBordered>
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         {/* <NavbarBrand className="gap-3 max-w-fit">
           <Link
@@ -63,7 +67,9 @@ export const Navbar = () => {
               <Link
                 className={clsx(
                   linkStyles({ color: "foreground" }),
-                  "data-[active=true]:text-primary data-[active=true]:font-medium",
+                  // "data-[active=true]:text-primary data-[active=true]:font-medium"
+                  ""
+                  + (activeBar == item.href ? "font-semibold text-primary-400" : ""),
                 )}
                 color="foreground"
                 href={item.href}
@@ -80,15 +86,6 @@ export const Navbar = () => {
         justify="end"
       >
         <NavbarItem className="hidden sm:flex gap-2">
-          {/* <Link isExternal href={siteConfig.links.twitter} title="Twitter">
-            <TwitterIcon className="text-default-500" />
-          </Link> */}
-          {/* <Link isExternal href={siteConfig.links.discord} title="Discord">
-            <DiscordIcon className="text-default-500" />
-          </Link> */}
-          <Link isExternal href={siteConfig.links.github} title="GitHub">
-            <GithubIcon className="text-default-500" />
-          </Link>
           <ThemeSwitch />
         </NavbarItem>
       </NavbarContent>

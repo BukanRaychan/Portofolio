@@ -184,3 +184,27 @@ export const SearchIcon = (props: IconSvgProps) => (
     />
   </svg>
 );
+
+export const LinkedinIcon = ({ className = "w-6 h-6", ...props } : IconSvgProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className={className}
+    {...props}
+  >
+    <path d="M4.98 3.5A2.5 2.5 0 007.5 6a2.5 2.5 0 11-5 0A2.5 2.5 0 004.98 3.5zM3 8.98h3.96V21H3V8.98zm7.48 0h3.8v1.64h.05c.53-.95 1.83-1.94 3.77-1.94 4.03 0 4.77 2.64 4.77 6.07V21h-3.96v-5.54c0-1.32-.02-3.02-1.84-3.02-1.84 0-2.12 1.43-2.12 2.91V21h-3.96V8.98z" />
+  </svg>
+);
+
+export const InstagramIcon = ({ className = "w-6 h-6", ...props }: IconSvgProps)  => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className={className}
+    {...props}
+  >
+    <path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3h10zm-5 3.5A5.5 5.5 0 0011.5 17a5.5 5.5 0 000-11zm0 2A3.5 3.5 0 1111.5 15 3.5 3.5 0 0112 7.5zm4.75-.75a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5z" />
+  </svg>
+);

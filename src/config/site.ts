@@ -8,23 +8,21 @@ export const siteConfig = {
       label: "Home",
       href: "/",
     },
-    // {
-    //   label: "Docs",
-    //   href: "/docs",
-    // },
-    // {
-    //   label: "Pricing",
-    //   href: "/pricing",
-    // },
-    // {
-    //   label: "Blog",
-    //   href: "/blog",
-    // },
-    // {
-    //   label: "About",
-    //   href: "/about",
-    // },
+    {
+      label: "About Me",
+      href: "/docs",
+    },
+    {
+      label: "Experience",
+      href: "/blog",
+    },
+    {
+      label: "Projects",
+      href: "/about",
+    },
   ],
+
+
   navMenuItems: [
     {
       label: "Profile",
@@ -65,5 +63,7 @@ export const siteConfig = {
     docs: "https://heroui.com",
     discord: "https://discord.gg/9b6yyZKmH4",
     sponsor: "https://patreon.com/jrgarciadev",
+    instagram : "https://www.instagram.com/raychan.jpg",
+    linkedin : "https://www.linkedin.com/in/fasya-raihan-maulana"
   },
 };
