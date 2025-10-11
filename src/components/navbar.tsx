@@ -49,7 +49,7 @@ export const Navbar = () => {
   );
 
   return (
-    <HeroUINavbar maxWidth="xl" position="sticky" isBordered>
+    <HeroUINavbar maxWidth="xl" position="sticky">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         {/* <NavbarBrand className="gap-3 max-w-fit">
           <Link
@@ -68,12 +68,15 @@ export const Navbar = () => {
                 className={clsx(
                   linkStyles({ color: "foreground" }),
                   // "data-[active=true]:text-primary data-[active=true]:font-medium"
-                  ""
-                  + (activeBar == item.href ? "font-semibold text-primary-400" : ""),
+                  "relative"
+                  + (activeBar == item.href ? "font-semibold text-danger-500" : ""),
                 )}
                 color="foreground"
                 href={item.href}
               >
+                <div className={`absolute -z-30 ${activeBar == item.href ? "blur-xs" : ""} `}>
+                  {item.label}
+                </div>
                 {item.label}
               </Link>
             </NavbarItem>

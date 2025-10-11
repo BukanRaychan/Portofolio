@@ -17,7 +17,7 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
 }) => {
   const [isMounted, setIsMounted] = useState(false);
 
-  const { theme, setTheme } = useTheme("light");
+  const { theme, setTheme } = useTheme("dark"); 
 
   const {
     Component,
