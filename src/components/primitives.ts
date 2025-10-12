@@ -18,6 +18,9 @@ export const title = tv({
       lg: "text-4xl lg:text-6xl",
       xl: "text-5xl lg:text-7xl",       // ✅ New: extra large (hero title)
       "2xl": "text-6xl lg:text-8xl",
+      "3xl": "text-7xl lg:text-9xl leading-[0.95]",
+      "4xl": "text-8xl lg:text-[10rem] leading-[0.9]",
+      "5xl": "text-9xl lg:text-[12rem] leading-[0.85]",
     },
     fullWidth: {
       true: "w-full block",

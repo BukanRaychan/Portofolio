@@ -11,22 +11,20 @@ import {
 } from "@heroui/navbar";
 import { link as linkStyles } from "@heroui/theme";
 import clsx from "clsx";
+import scrollToSection from "@/utils/scrollToSection.ts";
 
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
+
 import {
   // TwitterIcon,
   GithubIcon,
   // DiscordIcon,
   SearchIcon,
 } from "@/components/icons";
-import { useState } from "react";
 // import { Logo } from "@/components/icons";
 
 export const Navbar = () => {
-  const [activeBar, _] = useState(window.location.pathname);
-
-  
   const searchInput = (
     <Input
       aria-label="Search"
@@ -49,39 +47,35 @@ export const Navbar = () => {
   );
 
   return (
-    <HeroUINavbar maxWidth="xl" position="sticky">
+    <HeroUINavbar
+      maxWidth="xl"
+      classNames={{
+        base: "sticky",
+        wrapper: "!py-0 h-[60px] !min-h-0 ",
+        content: "h-auto !py-0 !min-h-0 items-center",
+        item: "!py-0",
+      }}
+    >
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
-        {/* <NavbarBrand className="gap-3 max-w-fit">
-          <Link
-            className="flex justify-start items-center gap-1"
-            color="foreground"
-            href="/"
-          >
-            <Logo />
-            <p className="font-bold text-inherit">ACME</p>
-          </Link>
-        </NavbarBrand> */}
-        <div className="hidden lg:flex gap-4 justify-start ml-2">
-          {siteConfig.navItems.map((item) => (
-            <NavbarItem key={item.href}>
-              <Link
-                className={clsx(
-                  linkStyles({ color: "foreground" }),
-                  // "data-[active=true]:text-primary data-[active=true]:font-medium"
-                  "relative"
-                  + (activeBar == item.href ? "font-semibold text-danger-500" : ""),
-                )}
-                color="foreground"
-                href={item.href}
-              >
-                <div className={`absolute -z-30 ${activeBar == item.href ? "blur-xs" : ""} `}>
+        
+          <div className="hidden lg:flex gap-12 justify-start ml-2">
+            {siteConfig.navItems.map((item) => (
+              <NavbarItem key={item.href} className="!py-0">
+                <Link
+                  className={clsx(
+                    "cursor-pointer transition-all duration-200",
+                    linkStyles({ color: "foreground" })
+                  )}
+                  onClick={() => scrollToSection(item.href)}
+                  href={"#" + item.href}
+                  data-to-scrollspy-id={item.href}
+                >
                   {item.label}
-                </div>
-                {item.label}
-              </Link>
-            </NavbarItem>
-          ))}
-        </div>
+                </Link>
+              </NavbarItem>
+            ))}
+          </div>
+        
       </NavbarContent>
 
       <NavbarContent

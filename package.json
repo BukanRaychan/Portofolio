@@ -12,7 +12,10 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
+    "@heroui/avatar": "^2.2.22",
     "@heroui/button": "2.2.26",
+    "@heroui/card": "^2.2.25",
+    "@heroui/chip": "^2.2.22",
     "@heroui/code": "2.2.20",
     "@heroui/dropdown": "2.3.26",
     "@heroui/image": "^2.2.16",
@@ -36,6 +39,7 @@
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-router-dom": "6.23.0",
+    "react-ui-scrollspy": "^2.3.0",
     "tailwind-variants": "3.1.1",
     "tailwindcss": "4.1.11"
   },
