@@ -36,26 +36,23 @@ export default function Contact() {
                 <span
                   className={`relative text-primary transition-all duration-300 `}
                 >
-                  <span className={title({ size: "3xl", font: "bold" , color: "success"})}>
+                  <span className={title({ size: "3xl", font: "bold" , color: "danger"})}>
                     Contact Me
                     
                     <div className="absolute -translate-y-full 
-                      blur-sm pointer-events-none -z-50 opacity-0 group-hover:opacity-50  
+                      blur-sm pointer-events-none -z-50 opacity-0 group-hover:opacity-25    
                       transition-all duration-300">
-                      <span className={title({ size: "3xl", font: "bold" , color: "success"})}>Contact Me</span>
+                      <span className={title({ size: "3xl", font: "bold" , color: "danger"})}>Contact Me</span>
                     </div>
                   </span>
                 </span>
               </div>
 
-              <motion.div
-                initial={{ opacity: 0, x: -10 }}
-                whileHover={{ opacity: 1, x: 5 }}
-                transition={{ type: "spring", stiffness: 250, damping: 20 }}
-                className="ml-3 flex items-center"
-              >
-                <ChevronRightIcon className="w-7 h-7 text-danger-600 drop-shadow-lg" />
-              </motion.div>
+              <div className="absolute right-0 top-1/2 
+              translate-x-9 transition duration-150 
+              opacity-0 group-hover:opacity-100 group-hover:translate-x-12 ease-in-out">
+                <ChevronRightIcon className="scale-200 text-danger-500  drop-shadow-lg " />
+              </div>
             </motion.div>
           </a>
         </div>

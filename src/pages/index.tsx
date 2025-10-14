@@ -8,7 +8,17 @@ import ScrollSpy from "react-ui-scrollspy";
 export default function Index() {
   return (
     <DefaultLayout>
-      <ScrollSpy useBoxMethod={false}
+      <ScrollSpy 
+      useBoxMethod
+      scrollThrottle={80}
+      offsetTop={60}
+      offsetBottom={0}
+      activeClass="active-scroll-spy"
+      updateHistoryStack={false}
+      onUpdateCallback={(activeId) => {
+        if (!activeId) return;
+        history.replaceState(null, "", `#${activeId}`);
+      }} 
       >
         <section
           id="home"
@@ -18,13 +28,13 @@ export default function Index() {
         </section>
         <section
           id="about"
-          className="h-[calc(100dvh-60px)] flex flex-col justify-center items-center bg-amber-300"
+          className="h-[calc(100dvh-60px)] flex flex-col"
         >
           <About />
         </section>
         <section
           id="works"
-          className="h-[calc(100dvh-60px)] flex flex-col justify-center items-center"
+          className="min-h-[calc(100dvh-60px)] flex flex-col justify-center items-center"
         >
           <Works />
         </section>

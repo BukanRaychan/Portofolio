@@ -58,7 +58,7 @@ export const Navbar = () => {
     >
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         
-          <div className="hidden lg:flex gap-12 justify-start ml-2">
+          <div className="hidden lg:flex gap-16 justify-start ml-2">
             {siteConfig.navItems.map((item) => (
               <NavbarItem key={item.href} className="!py-0">
                 <Link
@@ -67,7 +67,7 @@ export const Navbar = () => {
                     linkStyles({ color: "foreground" })
                   )}
                   onClick={() => scrollToSection(item.href)}
-                  href={"#" + item.href}
+                  
                   data-to-scrollspy-id={item.href}
                 >
                   {item.label}
@@ -75,7 +75,6 @@ export const Navbar = () => {
               </NavbarItem>
             ))}
           </div>
-        
       </NavbarContent>
 
       <NavbarContent

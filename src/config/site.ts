@@ -64,6 +64,7 @@ export const siteConfig = {
     discord: "https://discord.gg/9b6yyZKmH4",
     sponsor: "https://patreon.com/jrgarciadev",
     instagram : "https://www.instagram.com/raychan.jpg",
-    linkedin : "https://www.linkedin.com/in/fasya-raihan-maulana"
+    linkedin : "https://www.linkedin.com/in/fasya-raihan-maulana",
+    tiktok: "https://www.tiktok.com/@raychandolar"
   },
 };
