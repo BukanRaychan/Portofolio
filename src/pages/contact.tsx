@@ -20,7 +20,7 @@ export default function Contact() {
       <div className="text-center flex flex-col gap-y-12 ">
         <div className="group relative inline-block cursor-pointer select-none ">
           <div className="text-left ml-1 text-default-500 text-sm">
-            Click here too
+            Click here to
           </div>
 
           <a
