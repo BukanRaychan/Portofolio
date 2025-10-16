@@ -16,7 +16,7 @@ import { title } from "@/components/primitives";
 export default function Contact() {
   const email = "fasyaraihan82@gmail.com";
   return (
-    <div className="flex  items-center justify-center h-full ">
+    <div className="flex items-center justify-center h-full ">
       <div className="text-center flex flex-col gap-y-12 ">
         <div className="group relative inline-block cursor-pointer select-none ">
           <div className="text-left ml-1 text-default-500 text-sm">

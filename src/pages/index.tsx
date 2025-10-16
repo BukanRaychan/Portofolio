@@ -14,7 +14,6 @@ export default function Index() {
       offsetTop={60}
       offsetBottom={0}
       activeClass="active-scroll-spy"
-      updateHistoryStack={false}
       onUpdateCallback={(activeId) => {
         if (!activeId) return;
         history.replaceState(null, "", `#${activeId}`);
@@ -34,13 +33,13 @@ export default function Index() {
         </section>
         <section
           id="works"
-          className="min-h-[calc(100dvh-60px)] flex flex-col justify-center items-center"
+          className="min-h-[calc(100dvh-60px)] flex w-full"
         >
           <Works />
         </section>
         <section
           id="contact"
-          className="h-[calc(100dvh-60px)] relative pb-12 overflow-hidden "
+          className="h-[calc(100dvh-60px)]  overflow-hidden "
         >
           <Contact />
         </section>
