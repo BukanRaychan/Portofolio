@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import scrollToSection from "@/utils/scrollToSection";
 
 export default function Works() {
   const techIcons = import.meta.glob("../assets/images/tech/*.svg", {
@@ -148,13 +149,39 @@ export default function Works() {
   ];
 
   const [activeWork, setActiveWork] = useState(works[1]);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const manualSelect = useRef(false);
+
+  useEffect(() => {
+    const index = works.findIndex((w) => w.title === activeWork.title);
+    if (index >= 0) {
+      if (index == 1 || index == 2) {
+        scrollToSection("works")
+      } else if (index >= works.length - 4) {
+        cardRefs.current[works.length - 1]?.scrollIntoView({
+          behavior: "smooth",
+          block: "end",
+        });
+      } else {
+        cardRefs.current[index]?.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }
+    }
+  }, [activeWork]);
+
+  const handleManualSelect = (work: any) => {
+    manualSelect.current = true;
+    setActiveWork(work);
+    setTimeout(() => (manualSelect.current = false), 800);
+  };
 
   return (
     <>
+      {/* LEFT SIDE */}
       <div
-        className="sticky top-[60px] h-[calc(100dvh-60px)] 
-                   w-1/2 flex flex-col justify-center items-center 
-                   bg-background p-8 "
+        className="sticky top-[60px] h-[calc(100dvh-60px)] w-1/2 flex flex-col justify-center items-center bg-background p-8"
       >
         <motion.div
           key={activeWork.title}
@@ -164,9 +191,7 @@ export default function Works() {
           transition={{ duration: 0.4 }}
           className="max-w-lg text-left space-y-4"
         >
-          <h2 className="text-3xl font-bold text-primary">
-            {activeWork.title}
-          </h2>
+          <h2 className="text-3xl font-bold  text-danger">{activeWork.title}</h2>
           {activeWork.position && (
             <p className="text-default-500">{activeWork.position}</p>
           )}
@@ -174,7 +199,6 @@ export default function Works() {
             {activeWork.description}
           </p>
 
-          {/* Technologies */}
           {activeWork.technologies && (
             <div className="flex gap-3 flex-wrap mt-3">
               {activeWork.technologies.map((tech) => (
@@ -188,29 +212,31 @@ export default function Works() {
             </div>
           )}
 
-          {/* Carousel */}
           {activeWork.images && <WorkCarousel images={activeWork.images} />}
         </motion.div>
       </div>
 
-      {/* RIGHT SIDE (Scrollable) */}
-      <div className="w-1/2 overflow-y-auto p-8 space-y-6">
+      {/* RIGHT SIDE */}
+      <div className="w-1/2 overflow-y-auto p-8 space-y-6 works-scroll-area">
         {works.map((work, i) => {
           if (work?.header)
             return (
-              <h3 className="text-2xl font-semibold mb-6 text-primary">
+              <h3 key={i} className="text-2xl font-semibold mb-6 text-foreground">
                 {work.header}
               </h3>
             );
-          return (
+
+          const card = (
             <motion.div
+              ref={(el) => (cardRefs.current[i] = el)}
+              data-index={i}
               key={i}
               whileHover={{ scale: 1.02 }}
-              onClick={() => setActiveWork(work)}
-              className={`p-4 rounded-lg border cursor-pointer transition ${
+              onClick={() => handleManualSelect(work)}
+              className={`p-4 rounded-lg border cursor-pointer transition-all duration-300 ${
                 activeWork.title === work.title
                   ? "bg-primary/10 border-primary"
-                  : "hover:bg-primary/5 border-transparent"
+                  : "hover:bg-primary/5 border-transparent "
               }`}
             >
               <h4 className="text-lg font-semibold text-default-900">
@@ -222,7 +248,7 @@ export default function Works() {
               <p className="text-sm text-default-500">
                 {work.period} — {work.place}
               </p>
-              <div className="flex flex-wrap gap-2 mt-2">
+              {/* <div className="flex flex-wrap gap-2 mt-2">
                 {work.technologies?.slice(0, 4).map((t) => (
                   <span
                     key={t}
@@ -231,9 +257,19 @@ export default function Works() {
                     {t}
                   </span>
                 ))}
-              </div>
+              </div> */}
             </motion.div>
           );
+
+          if (i == works.length - 1) {
+            return (
+              <div className="pb-9" ref={(el) => (cardRefs.current[i] = el)}>
+                {card}
+              </div>
+            )
+          }
+
+          return card;
         })}
       </div>
     </>

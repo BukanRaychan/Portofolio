@@ -9,7 +9,7 @@ import {
   NavbarMenu,
   NavbarMenuItem,
 } from "@heroui/navbar";
-import { link as linkStyles } from "@heroui/theme";
+// import { link as linkStyles } from "@heroui/theme";
 import clsx from "clsx";
 import scrollToSection from "@/utils/scrollToSection.ts";
 
@@ -22,6 +22,7 @@ import {
   // DiscordIcon,
   SearchIcon,
 } from "@/components/icons";
+import { useScrollSpy } from "@/hooks/useScrollSpy";
 // import { Logo } from "@/components/icons";
 
 export const Navbar = () => {
@@ -45,7 +46,8 @@ export const Navbar = () => {
       type="search"
     />
   );
-
+  const sectionIds = siteConfig.navItems.map((item) => item.href);
+  const activeSection = useScrollSpy(sectionIds, 60);
   return (
     <HeroUINavbar
       maxWidth="xl"
@@ -57,24 +59,24 @@ export const Navbar = () => {
       }}
     >
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
-        
-          <div className="hidden lg:flex gap-16 justify-start ml-2">
-            {siteConfig.navItems.map((item) => (
-              <NavbarItem key={item.href} className="!py-0">
-                <Link
-                  className={clsx(
-                    "cursor-pointer transition-all duration-200",
-                    linkStyles({ color: "foreground" })
-                  )}
-                  onClick={() => scrollToSection(item.href)}
-                  
-                  data-to-scrollspy-id={item.href}
-                >
-                  {item.label}
-                </Link>
-              </NavbarItem>
-            ))}
-          </div>
+        <div className="hidden lg:flex gap-16 justify-start ml-2">
+          {siteConfig.navItems.map((item) => (
+            <NavbarItem key={item.href} className="!py-0">
+              <Link
+                onClick={() => scrollToSection(item.href)}
+                href={`#${item.href}`}
+                className={clsx(
+                  "cursor-pointer transition-all duration-200",
+                  activeSection === item.href
+                    ? "text-primary font-semibold"
+                    : "text-foreground/80"
+                )}
+              >
+                {item.label}
+              </Link>
+            </NavbarItem>
+          ))}
+        </div>
       </NavbarContent>
 
       <NavbarContent

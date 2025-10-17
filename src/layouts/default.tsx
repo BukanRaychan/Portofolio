@@ -1,12 +1,15 @@
 //import { Link } from "@heroui/link";
 
 import { Navbar } from "@/components/navbar";
+// import { useEffect } from "react";
 
 export default function DefaultLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  
+  
   return (
     <div className="relative flex flex-col min-h-screen">
       <Navbar />

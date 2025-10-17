@@ -28,7 +28,12 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
     getWrapperProps,
   } = useSwitch({
     isSelected: theme === "light",
-    onChange: () => setTheme(theme === "light" ? "dark" : "light"),
+    onChange: () => {
+      const x = window.scrollX;
+      const y = window.scrollY;
+      setTheme(theme === "light" ? "dark" : "light")
+      window.scrollTo(x, y);
+    },
   });
 
   useEffect(() => {

@@ -3,47 +3,39 @@ import Home from "./home";
 import About from "./about";
 import Works from "./works";
 import Contact from "./contact";
-import ScrollSpy from "react-ui-scrollspy";
 
 export default function Index() {
   return (
     <DefaultLayout>
-      <ScrollSpy 
-      useBoxMethod
-      scrollThrottle={80}
-      offsetTop={60}
-      offsetBottom={0}
-      activeClass="active-scroll-spy"
-      onUpdateCallback={(activeId) => {
-        if (!activeId) return;
-        history.replaceState(null, "", `#${activeId}`);
-      }} 
-      >
+      <main className="scroll-smooth snap-y snap-mandatory">
         <section
           id="home"
-          className="h-[calc(100dvh-60px)] flex flex-col justify-center items-center"
+          className="h-[calc(100dvh-60px)] flex flex-col justify-center items-center snap-start"
         >
           <Home />
         </section>
+
         <section
           id="about"
-          className="h-[calc(100dvh-60px)] flex flex-col"
+          className="h-[calc(100dvh-60px)] flex flex-col snap-start"
         >
           <About />
         </section>
+
         <section
           id="works"
-          className="min-h-[calc(100dvh-60px)] flex w-full"
+          className="min-h-[calc(100dvh-60px)] flex w-full snap-start"
         >
           <Works />
         </section>
+
         <section
           id="contact"
-          className="h-[calc(100dvh-60px)]  overflow-hidden "
+          className="h-[calc(100dvh-60px)] overflow-hidden snap-start"
         >
           <Contact />
         </section>
-      </ScrollSpy>
+      </main>
     </DefaultLayout>
   );
 }
