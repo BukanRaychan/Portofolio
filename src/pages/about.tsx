@@ -50,8 +50,9 @@ export default function About() {
               <motion.img
                 src={img}
                 alt={`top-${i}`}
-                className="h-[200px] w-auto object-cover transition-all duration-300 group-hover:opacity-70 hover:opacity-100"
+                className="h-[200px] rounded-sm w-auto object-cover transition-all duration-300 group-hover:opacity-60 hover:opacity-100"
               />
+              
             </motion.div>
           ))}
         </motion.div>
@@ -82,11 +83,14 @@ export default function About() {
               <motion.img
                 src={img}
                 alt={`bottom-${i}`}
-                className="h-[200px] w-auto object-cover transition-all duration-300 group-hover:opacity-70 hover:opacity-100"
+                className="h-[200px] rounded-sm w-auto object-cover transition-all duration-300 group-hover:opacity-60 hover:opacity-100"
               />
             </motion.div>
           ))}
         </motion.div>
+
+        <div className="h-2 w-full bg-gradient-to-b from-background/75 to-background/0 absolute top-0 "/>
+        <div className="h-2 w-full bg-gradient-to-t from-background/75 to-background/0 absolute bottom-0 "/>
       </div>
       <div className="flex flex-wrap items-center justify-between max-w-6xl flex-1">
         <motion.p
@@ -125,7 +129,8 @@ export default function About() {
             </motion.div>
           ))}
         </div>
-      </div>
+    </div>
+      
     </section>
   );
 }
