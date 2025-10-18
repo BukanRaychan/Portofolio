@@ -1,6 +1,6 @@
-import { Kbd } from "@heroui/kbd";
+// import { Kbd } from "@heroui/kbd";
 import { Link } from "@heroui/link";
-import { Input } from "@heroui/input";
+// import { Input } from "@heroui/input";
 import {
   Navbar as HeroUINavbar,
   NavbarContent,
@@ -15,13 +15,6 @@ import scrollToSection from "@/utils/scrollToSection.ts";
 
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
-
-import {
-  // TwitterIcon,
-  GithubIcon,
-  // DiscordIcon,
-  SearchIcon,
-} from "@/components/icons";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
 // import { Logo } from "@/components/icons";
 
