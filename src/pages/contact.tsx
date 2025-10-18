@@ -30,10 +30,10 @@ export default function Contact() {
       /> */}
 
       {/* 🕳 Fade overlay for cinematic gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/100 to-background/0 pointer-events-none" />
+      {/* <div className="absolute inset-0 bg-gradient-to-b from-background via-background/100 to-background/0 pointer-events-none" /> */}
 
       {/* 💬 Main content */}
-      <div className="relative z-10 text-center flex flex-col gap-y-12">
+      <div className="relative z-10 text-center flex flex-col gap-y-6 sm:gap-y-12">
         <motion.div
           className="group relative inline-block cursor-pointer select-none"
           initial={{ opacity: 0, y: 50 }}
@@ -103,7 +103,7 @@ export default function Contact() {
             isExternal
             href={siteConfig.links.github}
             aria-label="GitHub"
-            className="text-default hover:text-default-700 transition hover:scale-[1.1]"
+            className="text-default hover:text-default-700 transition  hover:scale-[1.1]"
           >
             <GithubIcon fontSize="large" />
           </Link>

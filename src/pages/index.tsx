@@ -17,14 +17,14 @@ export default function Index() {
 
         <section
           id="about"
-          className="h-[calc(100dvh-60px)] flex flex-col snap-start"
+          className="lg:h-[calc(100dvh-60px)] flex flex-col snap-start"
         >
           <About />
         </section>
 
         <section
           id="works"
-          className="min-h-[calc(100dvh-60px)] flex w-full snap-start"
+          className="min-h-[calc(100dvh-60px)] snap-start"
         >
           <Works />
         </section>

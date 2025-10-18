@@ -11,9 +11,9 @@ export default function DefaultLayout({
   
   
   return (
-    <div className="relative flex flex-col min-h-screen">
+    <div className="relative flex flex-col min-h-screen w-full">
       <Navbar />
-      <main className="container mx-auto  flex-grow"> {/* pt-16  max-w-7xl px-6*/}
+      <main className="mx-auto  flex-grow"> {/* pt-16  max-w-7xl px-6*/}
         {children}
       </main>
 

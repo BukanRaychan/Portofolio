@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import scrollToSection from "@/utils/scrollToSection";
+import { Accordion, AccordionItem } from "@heroui/accordion";
 
 export default function Works() {
   const techIcons = import.meta.glob("../assets/images/tech/*.svg", {
@@ -55,7 +56,14 @@ export default function Works() {
       description:
         "Assisted 500+ students over 3 semesters across 5 core courses, including Software Testing, Architecture & Design, and Operating Systems. Guided hands-on exercises with Java, Spring Boot, and process management simulations.",
       technologies: ["java", "springboot", "python", "go", "c"],
-      images: ["/works/practicum1.jpg", "/works/practicum2.jpg", "/works/practicum3.jpg", "/works/practicum4.jpg", "/works/practicum5.jpg", "/works/practicum6.jpg"],
+      images: [
+        "/works/practicum1.jpg",
+        "/works/practicum2.jpg",
+        "/works/practicum3.jpg",
+        "/works/practicum4.jpg",
+        "/works/practicum5.jpg",
+        "/works/practicum6.jpg",
+      ],
     },
     {
       title: "Lecturer Assistant",
@@ -64,7 +72,13 @@ export default function Works() {
       period: "Sep 2022 – Jun 2025",
       description:
         "Supported lectures for Operating Systems, Logic Mathematics, and Intro to Programming. Evaluated assignments and delivered coding sessions to help students strengthen theoretical understanding.",
-      images: ["/works/lecturer1.png" , "/works/lecturer2.png", "/works/lecturer3.png" ,"/works/lecturer4.png", "/works/lecturer5.png"],
+      images: [
+        "/works/lecturer1.png",
+        "/works/lecturer2.png",
+        "/works/lecturer3.png",
+        "/works/lecturer4.png",
+        "/works/lecturer5.png",
+      ],
     },
 
     { header: "Projects" },
@@ -77,7 +91,14 @@ export default function Works() {
       description:
         "Built a SaaS attendance system used by multiple schools with 1,000+ daily records. Developed 100+ REST APIs using Laravel with multi-tenant database models for secure data isolation.",
       technologies: ["laravel", "mysql", "vite"],
-      images: ["/works/presentia1.jpg", "/works/presentia2.jpg", "/works/presentia3.jpg", "/works/presentia4.jpg", "/works/presentia5.jpg", "/works/presentia6.jpg"],
+      images: [
+        "/works/presentia1.jpg",
+        "/works/presentia2.jpg",
+        "/works/presentia3.jpg",
+        "/works/presentia4.jpg",
+        "/works/presentia5.jpg",
+        "/works/presentia6.jpg",
+      ],
     },
     {
       title: "DetectMe — Healthcare App for Prenatal Tracking",
@@ -94,7 +115,12 @@ export default function Works() {
         "laravel",
         "socketio",
       ],
-      images: ["/works/detectme1.jpg", "/works/detectme2.jpg", "/works/detectme3.jpg", "/works/detectme4.jpg"],
+      images: [
+        "/works/detectme1.jpg",
+        "/works/detectme2.jpg",
+        "/works/detectme3.jpg",
+        "/works/detectme4.jpg",
+      ],
     },
     {
       title: "SMKN 10 Bandung Website",
@@ -104,7 +130,11 @@ export default function Works() {
       description:
         "Delivered a digital school platform for admissions, announcements, and internal communication. Built with Laravel, Inertia.js, and ReactJS using TailwindCSS for the frontend.",
       technologies: ["laravel", "react", "tailwindcss", "vite", "mysql"],
-      images: ["/works/smkn10-3.png", "/works/smkn10-1.png", "/works/smkn10-2.png"],
+      images: [
+        "/works/smkn10-3.png",
+        "/works/smkn10-1.png",
+        "/works/smkn10-2.png",
+      ],
     },
     {
       title: "CardiaInsight — AI for Cardiovascular Diagnosis",
@@ -156,7 +186,7 @@ export default function Works() {
     const index = works.findIndex((w) => w.title === activeWork.title);
     if (index >= 0) {
       if (index == 1 || index == 2) {
-        scrollToSection("works")
+        scrollToSection("works");
       } else if (index >= works.length - 4) {
         cardRefs.current[works.length - 1]?.scrollIntoView({
           behavior: "smooth",
@@ -178,11 +208,9 @@ export default function Works() {
   };
 
   return (
-    <>
-      {/* LEFT SIDE */}
-      <div
-        className="sticky top-[60px] h-[calc(100dvh-60px)] w-1/2 flex flex-col justify-center items-center bg-background p-8"
-      >
+    <div className="md:flex">
+      {/* ===== DESKTOP VIEW ===== */}
+      <div className="hidden md:flex sticky top-[60px] h-[calc(100dvh-60px)] w-1/2 flex-col justify-center items-center bg-background p-8">
         <motion.div
           key={activeWork.title}
           initial={{ opacity: 0, x: -20 }}
@@ -191,13 +219,9 @@ export default function Works() {
           transition={{ duration: 0.4 }}
           className="max-w-lg text-left space-y-4"
         >
-          <h2 className="text-3xl font-bold  text-danger">{activeWork.title}</h2>
-          {activeWork.position && (
-            <p className="text-default-500">{activeWork.position}</p>
-          )}
-          <p className="text-default-700 leading-relaxed">
-            {activeWork.description}
-          </p>
+          <h2 className="text-3xl font-bold text-danger">{activeWork.title}</h2>
+          {activeWork.position && <p className="text-default-500">{activeWork.position}</p>}
+          <p className="text-default-700 leading-relaxed">{activeWork.description}</p>
 
           {activeWork.technologies && (
             <div className="flex gap-3 flex-wrap mt-3">
@@ -216,8 +240,8 @@ export default function Works() {
         </motion.div>
       </div>
 
-      {/* RIGHT SIDE */}
-      <div className="w-1/2 overflow-y-auto p-8 space-y-6 works-scroll-area">
+      {/* RIGHT SIDE (DESKTOP SCROLL AREA) */}
+      <div className="hidden md:block w-1/2 p-8 space-y-6 works-scroll-area overflow-y-auto">
         {works.map((work, i) => {
           if (work?.header)
             return (
@@ -236,28 +260,12 @@ export default function Works() {
               className={`p-4 rounded-lg border cursor-pointer transition-all duration-300 ${
                 activeWork.title === work.title
                   ? "bg-primary/10 border-primary"
-                  : "hover:bg-primary/5 border-transparent "
+                  : "hover:bg-primary/5 border-transparent"
               }`}
             >
-              <h4 className="text-lg font-semibold text-default-900">
-                {work.title}
-              </h4>
-              {work.position && (
-                <p className="text-default-600">{work.position}</p>
-              )}
-              <p className="text-sm text-default-500">
-                {work.period} — {work.place}
-              </p>
-              {/* <div className="flex flex-wrap gap-2 mt-2">
-                {work.technologies?.slice(0, 4).map((t) => (
-                  <span
-                    key={t}
-                    className="text-xs bg-primary/10 text-primary px-2 py-1 rounded"
-                  >
-                    {t}
-                  </span>
-                ))}
-              </div> */}
+              <h4 className="text-lg font-semibold text-default-900">{work.title}</h4>
+              {work.position && <p className="text-default-600">{work.position}</p>}
+              <p className="text-sm text-default-500">{work.period} — {work.place}</p>
             </motion.div>
           );
 
@@ -272,7 +280,61 @@ export default function Works() {
           return card;
         })}
       </div>
-    </>
+
+      {/* ===== MOBILE ACCORDION ===== */}
+      <div className="block md:hidden px-4">
+        <Accordion
+          variant="splitted"
+          itemClasses={{
+            base: "bg-background border border-default-100 rounded-lg mb-2 text-success",
+            title: "font-semibold text-lg text-default-900",
+            content: "text-default-600 pt-2",
+          }}
+        >
+          {works.map((work, i) =>
+            work.header ? (
+              <AccordionItem key={i} title={work.header} className="text-xl font-bold mt-6 mb-2 text-danger bg-background" hideIndicator isDisabled={true} />
+
+            ) : (
+              <AccordionItem
+                key={i}
+                aria-label={work.title}
+                title={work.title}
+                subtitle={work.period ? `${work.period} — ${work.place}` : undefined}
+              >
+                <div className="flex flex-col gap-3 text-left">
+                  {work.position && (
+                    <p className="text-default-500 font-medium">{work.position}</p>
+                  )}
+                  <p className="text-default-700 leading-relaxed text-sm">
+                    {work.description}
+                  </p>
+
+                  {work.technologies && (
+                    <div className="flex flex-wrap gap-3 mt-1">
+                      {work.technologies.map((tech) => (
+                        <img
+                          key={tech}
+                          src={techMap[tech]}
+                          alt={tech}
+                          className="w-6 h-6 opacity-70 hover:opacity-100 transition"
+                        />
+                      ))}
+                    </div>
+                  )}
+
+                  {work.images && (
+                    <div className="mt-3">
+                      <WorkCarousel images={work.images} />
+                    </div>
+                  )}
+                </div>
+              </AccordionItem>
+            )
+          )}
+        </Accordion>
+      </div>
+    </div>
   );
 }
 
@@ -333,7 +395,7 @@ function WorkCarousel({ images, interval = 2500 }: WorkCarouselProps) {
         className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/10 text-white p-1.5 rounded-full scale-75
                     opacity-0 group-hover:opacity-100 transition hover:bg-black/50 cursor-pointer"
       >
-        <ChevronRightIcon  />
+        <ChevronRightIcon />
       </button>
 
       {/* Dots indicator */}

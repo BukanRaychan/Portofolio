@@ -26,7 +26,7 @@ export default function Home() {
 
       {/* Greeting text */}
       <motion.div
-        className="text-left flex flex-col items-start gap-3 z-10"
+        className="text-left flex flex-col items-start gap-3 z-10 px-12"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2, type: "spring", stiffness: 80 }}

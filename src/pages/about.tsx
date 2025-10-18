@@ -22,8 +22,8 @@ const interests = [
 
 export default function About() {
   return (
-    <section className="flex flex-col items-center text-center relative h-full w-full">
-      <div className="relative w-full overflow-hidden group flex-col flex gap-1 ">
+    <section className="flex flex-col items-center text-center relative h-full w-full ">
+      <div className="relative overflow-hidden group flex-col flex gap-1 ">
         {/* Top moving row */}
         <motion.div
           className="flex gap-1 w-full relative"
@@ -50,7 +50,7 @@ export default function About() {
               <motion.img
                 src={img}
                 alt={`top-${i}`}
-                className="h-[200px] rounded-sm w-auto object-cover transition-all duration-300 group-hover:opacity-60 hover:opacity-100"
+                className="h-[200px] rounded-lg w-auto object-cover transition-all duration-300 group-hover:opacity-60 hover:opacity-100"
               />
               
             </motion.div>
@@ -83,18 +83,18 @@ export default function About() {
               <motion.img
                 src={img}
                 alt={`bottom-${i}`}
-                className="h-[200px] rounded-sm w-auto object-cover transition-all duration-300 group-hover:opacity-60 hover:opacity-100"
+                className="h-[200px] rounded-lg w-auto object-cover transition-all duration-300 group-hover:opacity-60 hover:opacity-100"
               />
             </motion.div>
           ))}
         </motion.div>
 
-        <div className="h-2 w-full bg-gradient-to-b from-background/75 to-background/0 absolute top-0 "/>
-        <div className="h-2 w-full bg-gradient-to-t from-background/75 to-background/0 absolute bottom-0 "/>
+        <div className="h-full w-12 bg-gradient-to-r from-background/75 to-background/0 absolute left-0 "/>
+        <div className="h-full w-12 bg-gradient-to-l from-background/75 to-background/0 absolute right-0 "/>
       </div>
-      <div className="flex flex-wrap items-center justify-between max-w-6xl flex-1">
+      <div className="px-12 grid grid-cols-1 space-y-8 lg::space-y-0 py-8 lg:pt-0 lg:grid-cols-2 xl:px-0 place-items-center max-w-6xl flex-1">
         <motion.p
-          className="text-default-600 flex-1/2 text-left leading-relaxed max-w-xl  md:px-0"
+          className="text-default-600 text- md:text-base flex-none text-left leading-relaxed max-w-xl  md:px-0 "
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -108,8 +108,8 @@ export default function About() {
         </motion.p>
 
         {/* Interests */}
-        <div className="flex flex-wrap justify-center items-center gap-4 max-w-lg flex-1/2">
-          <div className="w-full  font-semibold text-lg text-success">
+        <div className="flex flex-wrap justify-start md:justify-center pr-16 md:pr-0 items-center gap-4 max-w-xl flex-none">
+          <div className="w-full text-start md:text-center font-semibold text-lg text-success">
             Interest
           </div>
           {interests.map((interest, i) => (

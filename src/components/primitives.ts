@@ -48,6 +48,10 @@ export const title = tv({
       ],
       class: "bg-clip-text text-transparent bg-gradient-to-b",
     },
+    {
+      size: ["4xl"],
+      class: "text-6xl sm:text-8xl"
+    }
   ],
 });
 
