@@ -29,16 +29,6 @@ export default function Works() {
       images: ["/works/showup1.png", "/works/showup2.png"],
     },
     {
-      title: "Software Engineer Intern",
-      position: "Software Engineer Intern",
-      place: "PT Pentacode Digital (IT Services & Consulting)",
-      period: "Jun 2024 – Aug 2024",
-      description:
-        "Built a PDF Maker feature for a monolithic Laravel-Inertia-React app, allowing users to generate downloadable reports directly from the platform. Worked closely with stakeholders to refine and deliver production-ready features.",
-      technologies: ["laravel", "react", "tailwindcss", "mysql"],
-      // images: ["/works/pentacode1.png"],
-    },
-    {
       title: "Backend Developer Intern — POS FNB Lakeside Website",
       position: "Backend Developer Intern",
       place: "CAATIS (Telkom University)",

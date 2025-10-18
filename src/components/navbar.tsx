@@ -19,7 +19,6 @@ import { useScrollSpy } from "@/hooks/useScrollSpy";
 // import { Logo } from "@/components/icons";
 
 export const Navbar = () => {
-  
   const sectionIds = siteConfig.navItems.map((item) => item.href);
   const activeSection = useScrollSpy(sectionIds, 60);
   return (
