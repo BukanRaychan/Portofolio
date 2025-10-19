@@ -50,7 +50,7 @@ export default function About() {
               <motion.img
                 src={img}
                 alt={`top-${i}`}
-                className="h-[200px] rounded-lg w-auto object-cover transition-all duration-300 group-hover:opacity-60 hover:opacity-100"
+                className="h-[200px] rounded-sm w-auto object-cover transition-all duration-300 group-hover:opacity-60 hover:opacity-100"
               />
               
             </motion.div>
@@ -83,7 +83,7 @@ export default function About() {
               <motion.img
                 src={img}
                 alt={`bottom-${i}`}
-                className="h-[200px] rounded-lg w-auto object-cover transition-all duration-300 group-hover:opacity-60 hover:opacity-100"
+                className="h-[200px] rounded-sm w-auto object-cover transition-all duration-300 group-hover:opacity-60 hover:opacity-100"
               />
             </motion.div>
           ))}
@@ -92,7 +92,7 @@ export default function About() {
         <div className="h-full w-12 bg-gradient-to-r from-background/75 to-background/0 absolute left-0 "/>
         <div className="h-full w-12 bg-gradient-to-l from-background/75 to-background/0 absolute right-0 "/>
       </div>
-      <div className="px-12 grid grid-cols-1 space-y-8 lg::space-y-0 py-8 lg:pt-0 lg:grid-cols-2 xl:px-0 place-items-center max-w-6xl flex-1">
+      <div className="px-12 grid grid-cols-1 space-y-8 md:space-y-0 py-8 lg:pt-0 lg:grid-cols-2 xl:px-0 place-items-center max-w-6xl flex-1">
         <motion.p
           className="text-default-600 text- md:text-base flex-none text-left leading-relaxed max-w-xl  md:px-0 "
           initial={{ opacity: 0, y: 20 }}

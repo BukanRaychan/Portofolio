@@ -1,27 +1,27 @@
 import { title, subtitle } from "@/components/primitives";
 import { motion } from "framer-motion";
 // import { SvgIcon } from "@mui/material";
-// import Web from "@mui/icons-material/Web";
-// import Code from "@mui/icons-material/Code";
+// import LanguageIcon from '@mui/icons-material/Language';
+// import CodeIcon from "@mui/icons-material/Code";
 
 export default function Home() {
   return (
-    <section className="relative flex flex-col items-center h-full w-full justify-center gap-6 overflow-hidden">
+    <section className="relative flex flex-col items-center h-full w-full justify-center gap-6 overflow-hidden ">
       {/* Spinning MUI logo ornaments */}
       {/* <motion.div
-        className="absolute top-10 left-10 text-warning/5 blur-xs"
+        className="absolute bottom-0 left-20 sm:scale-150 text-warning/5 blur-xs translate-y-1/3"
         animate={{ rotate: 360 }}
         transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
       >
-        <SvgIcon component={Web} sx={{ fontSize: 120 }} />
+        <SvgIcon component={LanguageIcon} sx={{ fontSize: 120 }} />
       </motion.div>
 
       <motion.div
-        className="absolute bottom-10 right-10 text-warning/5 blur-xs"
+        className="absolute bottom-0 right-20 sm:scale-200 text-warning/5 blur-xs translate-y-1/3"
         animate={{ rotate: -360 }}
         transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
       >
-        <SvgIcon component={Code} sx={{ fontSize: 90 }} />
+        <SvgIcon component={CodeIcon} sx={{ fontSize: 90 }} />
       </motion.div> */}
 
       {/* Greeting text */}
@@ -39,7 +39,7 @@ export default function Home() {
         >
           Hello, I'm Ray.
           <br />
-          <span className="text-foreground/90">A Software Engineer.</span>
+          <span className="">A Software Engineer.</span>
         </motion.h1>
 
         <motion.p

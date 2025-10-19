@@ -83,10 +83,10 @@ export default function Contact() {
 
               <div
                 className="absolute right-0 top-1/2 
-            translate-x-9 transition duration-150 
-            opacity-0 group-hover:opacity-100 group-hover:translate-x-12 ease-in-out"
+            sm:translate-x-9 transition duration-150 translate-x-0 group-hover:translate-x-9 -translate-y-1
+            opacity-0 group-hover:opacity-100 sm:group-hover:translate-x-12 ease-in-out sm:translate-y-0"
               >
-                <ChevronRightIcon className="scale-200 text-danger-500 drop-shadow-lg" />
+                <ChevronRightIcon className="sm:scale-200 text-danger-500 drop-shadow-lg" />
               </div>
             </motion.div>
           </a>
