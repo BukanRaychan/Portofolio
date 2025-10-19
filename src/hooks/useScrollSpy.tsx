@@ -25,8 +25,8 @@ export const useScrollSpy = (sectionIds: string[], offset = 0) => {
         }
       },
       {
-        rootMargin: `-${offset}px 0px -20% 0px`,
-        threshold: [0.2, 0.4, 0.6],
+        rootMargin: `-${offset}px 0px 20px 0px`,
+        threshold: [0.2, 0.4, 0.6, 0.8, 1],
       }
     );
 

@@ -174,6 +174,7 @@ export default function Works() {
 
   useEffect(() => {
     const index = works.findIndex((w) => w.title === activeWork.title);
+    if (window.location.hash != "#works") return;
     if (index >= 0) {
       if (index == 1 || index == 2) {
         scrollToSection("works");
