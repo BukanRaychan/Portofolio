@@ -110,6 +110,7 @@ export default function Works() {
         "/works/detectme2.jpg",
         "/works/detectme3.jpg",
         "/works/detectme4.jpg",
+        '/works/detectme5.jpg'
       ],
     },
     {
