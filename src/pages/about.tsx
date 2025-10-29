@@ -50,7 +50,7 @@ export default function About() {
               <motion.img
                 src={img}
                 alt={`top-${i}`}
-                className="h-[200px] rounded-sm w-auto object-cover transition-all duration-300 group-hover:opacity-60 hover:opacity-100"
+                className="lg:h-[250px] h-[200px] rounded-sm w-auto object-cover transition-all duration-300 group-hover:opacity-60 hover:opacity-100"
               />
               
             </motion.div>
@@ -83,7 +83,7 @@ export default function About() {
               <motion.img
                 src={img}
                 alt={`bottom-${i}`}
-                className="h-[200px] rounded-sm w-auto object-cover transition-all duration-300 group-hover:opacity-60 hover:opacity-100"
+                className="lg:h-[250px] h-[200px] rounded-sm w-auto object-cover transition-all duration-300 group-hover:opacity-60 hover:opacity-100"
               />
             </motion.div>
           ))}

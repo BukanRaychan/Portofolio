@@ -23,7 +23,7 @@ export const Navbar = () => {
   const activeSection = useScrollSpy(sectionIds, 60);
   return (
     <HeroUINavbar
-      maxWidth="xl"
+      maxWidth="2xl"
       classNames={{
         base: "sticky",
         wrapper: "!py-0 h-[60px] !min-h-0 ",

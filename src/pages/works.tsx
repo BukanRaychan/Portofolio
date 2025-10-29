@@ -177,7 +177,7 @@ export default function Works() {
     const index = works.findIndex((w) => w.title === activeWork.title);
     if (window.location.hash != "#works") return;
     if (index >= 0) {
-      if (index == 1 || index == 2) {
+      if (index <= 3) {
         scrollToSection("works");
       } else if (index >= works.length - 4) {
         cardRefs.current[works.length - 1]?.scrollIntoView({
@@ -263,7 +263,7 @@ export default function Works() {
 
           if (i == works.length - 1) {
             return (
-              <div className="pb-9" ref={(el) => (cardRefs.current[i] = el)}>
+              <div className="pb-6" ref={(el) => (cardRefs.current[i] = el)}>
                 {card}
               </div>
             )
