@@ -49,10 +49,10 @@ export default function Works() {
       images: [
         "/works/practicum1.jpg",
         "/works/practicum2.jpg",
-        "/works/practicum3.jpg",
         "/works/practicum4.jpg",
         "/works/practicum5.jpg",
         "/works/practicum6.jpg",
+        "/works/practicum3.jpg",
       ],
     },
     {
@@ -106,11 +106,12 @@ export default function Works() {
         "socketio",
       ],
       images: [
+        '/works/detectme6.jpg',
         "/works/detectme1.jpg",
         "/works/detectme2.jpg",
         "/works/detectme3.jpg",
         "/works/detectme4.jpg",
-        '/works/detectme5.jpg'
+        '/works/detectme5.jpg',
       ],
     },
     {
@@ -155,7 +156,6 @@ export default function Works() {
       description:
         "Built a data sharding dashboard using vanilla HTML, CSS, JS, and Bootstrap 5. Reached Top 60 among 1,492 global participants in the hackathon.",
       technologies: ["html", "css", "js", "bootstrap"],
-      // images: ["/works/tidb1.png"],
     },
     {
       title: "TakeCare — Health Management App",
@@ -165,7 +165,6 @@ export default function Works() {
       description:
         "Developed a CRUD-based web app using Spring MVC and MySQL. Implemented JWT authentication for secure access. Completed independently in 2 weeks and earned an A grade.",
       technologies: ["java", "springboot", "mysql"],
-      // images: ["/works/takecare1.png"],
     },
   ];
 
