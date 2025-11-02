@@ -40,9 +40,9 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <div className="text-left ml-1 text-default-500 text-sm">
+          {/* <div className="text-left ml-1 text-default-500 text-sm">
             Click here to
-          </div>
+          </div> */}
 
           <a
             href={`mailto:${email}?subject=Hello%20Fasya&body=Hi%20Fasya,%0D%0A`}
@@ -99,30 +99,35 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
         >
-          <Link
-            isExternal
-            href={siteConfig.links.github}
-            aria-label="GitHub"
-            className="text-default hover:text-default-700 transition  hover:scale-[1.1]"
-          >
-            <GithubIcon fontSize="large" />
-          </Link>
-          <Link
-            isExternal
-            href={siteConfig.links.linkedin}
-            aria-label="LinkedIn"
-            className="text-default hover:text-default-700 transition hover:scale-[1.1]"
-          >
-            <LinkedInIcon fontSize="large" />
-          </Link>
-          <Link
-            isExternal
-            href={siteConfig.links.instagram}
-            aria-label="Instagram"
-            className="text-default hover:text-default-700 transition hover:scale-[1.1]"
-          >
-            <InstagramIcon fontSize="large" />
-          </Link>
+          {
+            [
+              {
+                href : siteConfig.links.github,
+                logo : <GithubIcon fontSize="large"/>,
+                arialabel: "Github",
+              },
+              {
+                href : siteConfig.links.linkedin,
+                logo : <LinkedInIcon fontSize="large" />,
+                arialabel: "Linkedin",
+              },
+              {
+                href : siteConfig.links.instagram,
+                logo : <InstagramIcon fontSize="large" />,
+                arialabel: "Instagram",
+              } 
+            ].map((value, i) => (
+              <Link
+                isExternal
+                href={value.href}
+                aria-label={value.arialabel}
+                key={i}
+                className="text-default-400  hover:text-default-700 transition scale-125 px-3  hover:scale-[1.3]"
+              >
+                {value.logo}
+              </Link>
+            ))
+          }
         </motion.div>
       </div>
 

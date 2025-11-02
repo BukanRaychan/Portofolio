@@ -12,13 +12,17 @@ const bottomImages = images.slice(mid);
 const interests = [
   "Web Development",
   "Artificial Intelligence",
-  "Gym",
   "Backend Engineering",
-  "Data Engineering",
-  "Roblox🤖",
-  "Game Online",
   "Data Structure",
+  "System Engineering",
+  "Data Engineering",
+  "Gym",
+  "Traveling",
+  "Game Online (Roblox)",
 ];
+
+type ChipColor = "default" | "secondary" | "success" | "danger" | "warning" | "primary";
+const chipColors: ChipColor[] = ["primary", "secondary", "success", "danger"];
 
 export default function About() {
   return (
@@ -52,7 +56,6 @@ export default function About() {
                 alt={`top-${i}`}
                 className="lg:h-[250px] h-[200px] rounded-sm w-auto object-cover transition-all duration-300 group-hover:opacity-60 hover:opacity-100"
               />
-              
             </motion.div>
           ))}
         </motion.div>
@@ -89,28 +92,32 @@ export default function About() {
           ))}
         </motion.div>
 
-        <div className="h-full w-12 bg-gradient-to-r from-background/75 to-background/0 absolute left-0 "/>
-        <div className="h-full w-12 bg-gradient-to-l from-background/75 to-background/0 absolute right-0 "/>
+        <div className="h-full w-12 bg-gradient-to-r from-background/75 to-background/0 absolute left-0 " />
+        <div className="h-full w-12 bg-gradient-to-l from-background/75 to-background/0 absolute right-0 " />
       </div>
-      <div className="px-12 grid grid-cols-1 space-y-8 md:space-y-0 py-8 lg:pt-0 lg:grid-cols-2 xl:px-0 place-items-center max-w-6xl flex-1">
+      <div className="px-12 grid grid-cols-1 space-y-8 lg:space-y-0 py-8 lg:pt-0 lg:grid-cols-2 place-items-center flex-1 lg:w-4/5">
         <motion.p
-          className="text-default-600 text- md:text-base flex-none text-left leading-relaxed max-w-xl  md:px-0 "
+          className="text-default-700 md:text-base flex-none text-left leading-relaxed max-w-xl  md:pr-6 "
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          Hi, I’m <span className="text-success font-semibold">Ray</span> — a
-          passionate software engineer who loves turning ideas into interactive
-          experiences. I specialize in building web applications that combine
-          clean design and high performance. I enjoy learning new technologies
-          and collaborating with other creators to make the web a more beautiful
-          and accessible space.
+          <div className="text-lg font-light">
+            Hi, I’m <span className="text-success font-semibold">Ray</span> — a
+            passionate software engineer who loves exploring about new technologies and AI. 
+            I specialize in building web applications that combine clean design and high performance. 
+            I enjoy learning new technologies and collaborating with other creators to make the software a
+            more beautiful and accessible space.
+          </div>
         </motion.p>
 
         {/* Interests */}
-        <div className="flex flex-wrap justify-start md:justify-center pr-16 md:pr-0 items-center gap-4 max-w-xl flex-none">
-          <div className="w-full text-start md:text-center font-semibold text-lg text-success">
-            Interest
+        <div className="flex flex-wrap justify-start md:justify-center pr-16 md:pr-0 items-center gap-4 max-w-xl flex-none md:pl-6">
+          <div className="relative w-full text-start md:text-center font-semibold md:text-3xl text-2xl text-warning mb-2">
+            Interests
+            <div className="absolute top-0 md:left-1/2 md:-translate-x-1/2 blur-sm ">
+              Interests
+            </div>
           </div>
           {interests.map((interest, i) => (
             <motion.div
@@ -120,7 +127,7 @@ export default function About() {
               transition={{ delay: i * 0.05, type: "spring", stiffness: 200 }}
             >
               <Chip
-                color="success"
+                color={`${chipColors[i % 4]}`}
                 variant="flat"
                 className="cursor-default hover:scale-105 transition-transform"
               >
@@ -129,8 +136,7 @@ export default function About() {
             </motion.div>
           ))}
         </div>
-    </div>
-      
+      </div>
     </section>
   );
 }
