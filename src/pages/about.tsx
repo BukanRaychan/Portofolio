@@ -103,7 +103,7 @@ export default function About() {
           transition={{ duration: 0.6 }}
         >
           <div className="text-lg font-light">
-            Hi, I’m <span className="text-success font-semibold">Ray</span> — a
+            Hi, I’m Fasya Raihan Maulana, you can call me <span className="text-success font-semibold">Ray</span> — a
             passionate software engineer who loves exploring about new technologies and AI. 
             I specialize in building web applications that combine clean design and high performance. 
             I enjoy learning new technologies and collaborating with other creators to make the software a

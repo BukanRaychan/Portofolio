@@ -26,13 +26,13 @@ export default function Home() {
 
       {/* Greeting text */}
       <motion.div
-        className="text-left flex flex-col items-start gap-3 z-10 px-12"
+        className="text-left flex flex-col items-start gap-6 z-10 px-12"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2, type: "spring", stiffness: 80 }}
       >
         <motion.h1
-          className={title({ fullWidth: true, size: "2xl" })}
+          className={title({ fullWidth: true, size: "2xl",  color:"primary" })}
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.2, type: "spring", stiffness: 120 }}
@@ -43,12 +43,12 @@ export default function Home() {
         </motion.h1>
 
         <motion.p
-          className={`${subtitle()} `}
+          className={`${subtitle()} max-w-[800px]`}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 1 }}
         >
-          I build smooth, performant websites using modern technologies.
+          A software engineering enthusiast, constantly eager to learn and explore cutting-edge technologies to build innovative software solutions.
         </motion.p>
       </motion.div>
 
