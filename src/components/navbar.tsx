@@ -12,31 +12,44 @@ import {
 // import { link as linkStyles } from "@heroui/theme";
 import clsx from "clsx";
 import scrollToSection from "@/utils/scrollToSection.ts";
-
+import logo from '@/assets/images/logo.png'
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
+import { useWorks } from "@/context/works-context";
 // import { Logo } from "@/components/icons";
 
 export const Navbar = () => {
   const sectionIds = siteConfig.navItems.map((item) => item.href);
   const activeSection = useScrollSpy(sectionIds, 60);
+  const {resetActiveWork} = useWorks();
+
   return (
     <HeroUINavbar
       maxWidth="2xl"
       classNames={{
         base: "sticky",
         wrapper: "!py-0 h-[60px] !min-h-0 ",
-        content: "h-auto !py-0 !min-h-0 items-center",
+        content: "h-auto !py-0 !min-h-0 !items-center ",
         item: "!py-0",
       }}
     >
-      <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
-        <div className="hidden sm:flex gap-16 justify-start ml-2">
+      <NavbarContent justify="start">
+        <img
+          src={logo}
+          alt={"Logo"}
+          className={`w-6 scale-auto`}
+        />
+      </NavbarContent>
+      <NavbarContent className="basis-1/5 sm:basis-full" justify="end">
+        <div className="hidden sm:flex gap-16  justify-center">
           {siteConfig.navItems.map((item) => (
             <NavbarItem key={item.href} className="!py-0">
               <Link
-                onClick={() => scrollToSection(item.href)}
+                onClick={() => {
+                  scrollToSection(item.href)
+                  if(item.href == "works") resetActiveWork();
+                }}
                 href={`#${item.href}`}
                 className={clsx(
                   "cursor-pointer transition-all duration-200",
@@ -53,16 +66,16 @@ export const Navbar = () => {
       </NavbarContent>
 
       <NavbarContent
-        className="hidden sm:flex basis-1/5 sm:basis-full"
+        className="hidden sm:flex basis-1/5 sm:basis-full absolute"
         justify="end"
       >
         <NavbarItem className="hidden sm:flex gap-2">
-          <ThemeSwitch />
+          <ThemeSwitch className="hidden"/>
         </NavbarItem>
       </NavbarContent>
 
-      <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-        <ThemeSwitch />
+      <NavbarContent className="sm:hidden basis-1 pl-4 absolute" justify="end">
+        <ThemeSwitch className="hidden"/>
         <NavbarMenuToggle />
       </NavbarContent>
 
