@@ -36,11 +36,8 @@ export const Navbar = () => {
         item: "!py-0",
       }}
     >
-      <NavbarContent justify="start">
-        <img src={logo} alt={"Logo"} className={`w-6 scale-auto`} />
-      </NavbarContent>
-
-      <NavbarContent className="basis-1/5 hidden sm:flex" justify="center">
+      <NavbarContent className="basis-1/5 sm:basis-full flex gap-16" justify="start">
+        <img src={logo} alt={"Logo"} className={`w-8 scale-auto`} />
         <div className="hidden sm:flex gap-16 justify-center">
           {siteConfig.navItems.map((item) => (
             <NavbarItem key={item.href} className="!py-0">
