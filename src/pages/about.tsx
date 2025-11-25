@@ -6,7 +6,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { techIcons } from "@/data/tech-Icons";
 import telkom from "@/assets/images/telkom.png";
 
-
 const imageModules = import.meta.glob("../assets/images/about/*.jpg", {
   eager: true,
 });
@@ -47,6 +46,21 @@ export default function About() {
 
   const items = useMemo(() => Object.entries(techIcons), []);
   const totalItems = items.length;
+
+  const autoPlayRef = useRef(true);
+
+  useEffect(() => {
+    if (!pages.length) return;
+
+    const id = setInterval(() => {
+      if (!autoPlayRef.current) return;
+
+      const next = (activePage + 1) % pages.length;
+      scrollToPage(next);
+    }, 2000); // 👈 speed: 3.5s per slide (change as you like)
+
+    return () => clearInterval(id);
+  }, [activePage, pages.length]);
 
   useEffect(() => {
     const computePerPage = () => {
@@ -227,6 +241,8 @@ export default function About() {
 
           <div
             ref={wrapperRef}
+            onMouseEnter={() => (autoPlayRef.current = false)}
+            onMouseLeave={() => (autoPlayRef.current = true)}
             className="
             flex items-center
             relative group
@@ -246,7 +262,7 @@ export default function About() {
             >
               <ChevronLeft
                 className="!text-4xl text-default-900 scale-100 
-              !transition duration-75 -translate-x-12 group-hover:translate-x-2 !shadow-2xl hover:scale-120"
+              !transition duration-75 translate-x-2 !shadow-2xl hover:scale-120"
               />
             </button>
 
@@ -277,7 +293,7 @@ export default function About() {
                         ref={pageIdx === 0 && i === 0 ? cardRef : undefined}
                         key={`${key}-${pageIdx}-${i}`}
                         className="
-                          flex items-center justify-center gap-3
+                          flex items-center justify-center gap-4
                           px-3 py-2 rounded-lg
                           bg-transparent
                           border border-transparent
@@ -294,7 +310,7 @@ export default function About() {
                             item.needsInvertion ? "dark:invert" : ""
                           }`}
                         />
-                        <span className="text-md sm:text-lg text-secondary">
+                        <span className="text-md sm:text-lg text-foreground font-medium">
                           {item.name}
                         </span>
                       </div>
@@ -318,7 +334,7 @@ export default function About() {
             >
               <ChevronRight
                 className="!text-4xl text-default-900 scale-100 
-              !transition duration-75 translate-x-12 group-hover:translate-x-2 !shadow-xl hover:scale-120"
+              !transition duration-75 -translate-x-2 !shadow-xl hover:scale-120"
               />
             </button>
           </div>
@@ -342,11 +358,7 @@ export default function About() {
             Education
           </div>
           <div className="flex items-start pl-2 pt-2">
-            <img 
-              alt="Telkom University"
-              src={telkom}
-              className="h-12 pt-2"
-            />
+            <img alt="Telkom University" src={telkom} className="h-12 pt-2" />
             <div className="rounded-xl bg-background/70 backdrop-blur-sm px-5 shadow-sm">
               <div className="flex items-start justify-between gap-3">
                 <div>
@@ -354,7 +366,8 @@ export default function About() {
                     Telkom University
                   </div>
                   <div className="text-sm md:text-base text-default-600">
-                    Bachelor of Technology, Software Enginering, Cumulative GPA : 3.93/4.00
+                    Bachelor of Technology, Software Enginering, Cumulative GPA
+                    : 3.93/4.00
                   </div>
                 </div>
 
@@ -365,8 +378,9 @@ export default function About() {
 
               <div className="mt-3 text-sm md:text-base text-default-700 leading-relaxed">
                 Focused on software engineering, web development, data
-                structures, and AI-related coursework. Actively involved for 2 years in organizing campus events, 
-                coordinating student activities, and collaborating across departments.
+                structures, and AI-related coursework. Actively involved for 2
+                years in organizing campus events, coordinating student
+                activities, and collaborating across departments.
               </div>
             </div>
           </div>

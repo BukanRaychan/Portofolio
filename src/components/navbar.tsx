@@ -1,5 +1,6 @@
 // import { Kbd } from "@heroui/kbd";
 import { Link } from "@heroui/link";
+import { Button } from "@heroui/button";
 // import { Input } from "@heroui/input";
 import {
   Navbar as HeroUINavbar,
@@ -12,17 +13,18 @@ import {
 // import { link as linkStyles } from "@heroui/theme";
 import clsx from "clsx";
 import scrollToSection from "@/utils/scrollToSection.ts";
-import logo from '@/assets/images/logo.png'
+import logo from "@/assets/images/logo.png";
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
 import { useWorks } from "@/context/works-context";
+import InsertDriveFile from "@mui/icons-material/InsertDriveFile";
 // import { Logo } from "@/components/icons";
 
 export const Navbar = () => {
   const sectionIds = siteConfig.navItems.map((item) => item.href);
   const activeSection = useScrollSpy(sectionIds, 60);
-  const {resetActiveWork} = useWorks();
+  const { resetActiveWork } = useWorks();
 
   return (
     <HeroUINavbar
@@ -35,20 +37,17 @@ export const Navbar = () => {
       }}
     >
       <NavbarContent justify="start">
-        <img
-          src={logo}
-          alt={"Logo"}
-          className={`w-6 scale-auto`}
-        />
+        <img src={logo} alt={"Logo"} className={`w-6 scale-auto`} />
       </NavbarContent>
-      <NavbarContent className="basis-1/5 sm:basis-full" justify="end">
-        <div className="hidden sm:flex gap-16  justify-center">
+
+      <NavbarContent className="basis-1/5 hidden sm:flex" justify="center">
+        <div className="hidden sm:flex gap-16 justify-center">
           {siteConfig.navItems.map((item) => (
             <NavbarItem key={item.href} className="!py-0">
               <Link
                 onClick={() => {
-                  scrollToSection(item.href)
-                  if(item.href == "works") resetActiveWork();
+                  scrollToSection(item.href);
+                  if (item.href == "works") resetActiveWork();
                 }}
                 href={`#${item.href}`}
                 className={clsx(
@@ -65,17 +64,43 @@ export const Navbar = () => {
         </div>
       </NavbarContent>
 
+      <NavbarContent className="basis-full flex sm:hidden" >
+        <div className="mx-auto">
+          <Button
+            className=""
+            as="a"
+            href={
+              "https://drive.google.com/uc?export=download&id=1oH3qMamQM7yTF819GqR5VBopzJ0Z_zKg"
+            }
+            color="primary"
+          >
+            <InsertDriveFile />
+            <span className="font-semibold">Download CV</span>
+          </Button>
+        </div>
+      </NavbarContent>
+
       <NavbarContent
-        className="hidden sm:flex basis-1/5 sm:basis-full absolute"
+        className="hidden sm:flex basis-1/5 sm:basis-full "
         justify="end"
       >
         <NavbarItem className="hidden sm:flex gap-2">
-          <ThemeSwitch className="hidden"/>
+          <ThemeSwitch className="hidden absolute" />
+          <Button
+            as="a"
+            href={
+              "https://drive.google.com/uc?export=download&id=1oH3qMamQM7yTF819GqR5VBopzJ0Z_zKg"
+            }
+            color="primary"
+          >
+            <InsertDriveFile />
+            <span className="font-semibold">Download CV</span>
+          </Button>
         </NavbarItem>
       </NavbarContent>
 
-      <NavbarContent className="sm:hidden basis-1 pl-4 absolute" justify="end">
-        <ThemeSwitch className="hidden"/>
+      <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
+        <ThemeSwitch className="hidden absolute" />
         <NavbarMenuToggle />
       </NavbarContent>
 

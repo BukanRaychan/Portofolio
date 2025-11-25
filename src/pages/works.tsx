@@ -51,7 +51,7 @@ export default function Works() {
           transition={{ duration: 0.4 }}
           className="max-w-lg text-left space-y-4"
         >
-          <h2 className="text-3xl font-bold text-danger">{activeWork.title}</h2>
+          <h2 className="text-3xl font-bold text-foreground">{activeWork.title}</h2>
           {activeWork.position && <p className="text-default-500">{activeWork.position}</p>}
           <p className="text-default-700 leading-relaxed">{activeWork.description}</p>
           {activeWork.images && <WorkCarousel images={activeWork.images} />}
@@ -125,9 +125,9 @@ export default function Works() {
         <Accordion
           variant="splitted"
           itemClasses={{
-            base: "bg-background border border-default-100 rounded-lg mb-2 text-success",
+            base: "bg-background border border-default-100 rounded-lg mb-2 text-foreground/70",
             title: "font-semibold text-lg text-default-900",
-            content: "text-default-600 pt-2",
+            content: "text-default-700 pt-2",
           }}
         >
           {works.map((work, i) =>
@@ -154,7 +154,7 @@ export default function Works() {
                     </div>
                   )}
                   {work.technologies && (
-                    <div className="flex flex-wrap gap-3 mt-3">
+                    <div className="flex flex-wrap gap-3 my-3 justify-center">
                       {work.technologies.map((tech) => (
                         <img
                           key={tech}
