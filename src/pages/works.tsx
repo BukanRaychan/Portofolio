@@ -16,6 +16,7 @@ export default function Works() {
 
   useEffect(() => {
     const index = works.findIndex((w) => w.title === activeWork.title);
+    console.log(window.innerWidth, window.devicePixelRatio);
     if (window.location.hash != "#works") return;
     if (index >= 0) {
       if (index <= 3) {

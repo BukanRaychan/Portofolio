@@ -51,7 +51,6 @@ export default function About() {
 
   useEffect(() => {
     if (!pages.length) return;
-
     const id = setInterval(() => {
       if (!autoPlayRef.current) return;
 
@@ -70,7 +69,7 @@ export default function About() {
       // mobile < 640
       // tablet 640–1023
       // desktop >= 1024
-      let pp = 2; // mobile
+      let pp = 3; // mobile
       if (w >= 640) pp = 4; // tablet
       if (w >= 1024) pp = 5; // desktop
       if (w >= 1280) pp = 8;
@@ -155,7 +154,7 @@ export default function About() {
               <motion.img
                 src={img}
                 alt={`top-${i}`}
-                className="lg:h-[250px] h-[200px] rounded-md w-auto object-cover transition-all duration-300  opacity-80"
+                className=" lg:h-[250px] h-[200px] rounded-md w-auto object-cover transition-all duration-300  opacity-80"
               />
             </motion.div>
           ))}
@@ -261,8 +260,8 @@ export default function About() {
               "
             >
               <ChevronLeft
-                className="!text-4xl text-default-900 scale-100 
-              !transition duration-75 translate-x-2 !shadow-2xl hover:scale-120"
+                className="!text-sm md:!text-4xl text-default-900 scale-100 
+              !transition duration-75 md:-translate-x-2 -translate-x-1 !shadow-xl hover:scale-120"
               />
             </button>
 
@@ -306,11 +305,11 @@ export default function About() {
                         <img
                           src={item.logo}
                           alt={item.name}
-                          className={`h-12 w-12 object-contain ${
+                          className={`h-6 md:h-12  object-contain ${
                             item.needsInvertion ? "dark:invert" : ""
                           }`}
                         />
-                        <span className="text-md sm:text-lg text-foreground font-medium">
+                        <span className="text-md md:text-lg text-foreground font-medium">
                           {item.name}
                         </span>
                       </div>
@@ -333,8 +332,8 @@ export default function About() {
               aria-label="Scroll skills right"
             >
               <ChevronRight
-                className="!text-4xl text-default-900 scale-100 
-              !transition duration-75 -translate-x-2 !shadow-xl hover:scale-120"
+                className="!text-sm md:!text-4xl text-default-900 scale-100 
+              !transition duration-75 md:-translate-x-2 translate-x-1 !shadow-xl hover:scale-120"
               />
             </button>
           </div>

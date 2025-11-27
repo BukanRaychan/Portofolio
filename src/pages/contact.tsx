@@ -94,7 +94,7 @@ export default function Contact() {
 
         {/* Social icons */}
         <motion.div
-          className="flex gap-6 items-center justify-center"
+          className="flex gap-5 items-center justify-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
@@ -103,17 +103,17 @@ export default function Contact() {
             [
               {
                 href : siteConfig.links.github,
-                logo : <GithubIcon fontSize="large"/>,
+                logo : <GithubIcon className=""/>,
                 arialabel: "Github",
               },
               {
                 href : siteConfig.links.linkedin,
-                logo : <LinkedInIcon fontSize="large" />,
+                logo : <LinkedInIcon  className=""/>,
                 arialabel: "Linkedin",
               },
               {
                 href : siteConfig.links.instagram,
-                logo : <InstagramIcon fontSize="large" />,
+                logo : <InstagramIcon className="" />,
                 arialabel: "Instagram",
               } 
             ].map((value, i) => (
@@ -122,7 +122,7 @@ export default function Contact() {
                 href={value.href}
                 aria-label={value.arialabel}
                 key={i}
-                className="text-default-400  hover:text-default-700 transition scale-125 px-3  hover:scale-[1.3]"
+                className="text-default-500  hover:text-default-700 transition scale-125 px-3"
               >
                 {value.logo}
               </Link>
