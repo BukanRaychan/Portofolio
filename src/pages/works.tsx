@@ -85,7 +85,7 @@ export default function Works() {
         {works.map((work, i) => {
           if (work?.header)
             return (
-              <h3 key={i} className="text-2xl font-semibold mb-6 text-foreground">
+              <h3 key={i + 100} className="text-2xl font-semibold mb-6 text-foreground">
                 {work.header}
               </h3>
             );
@@ -97,15 +97,21 @@ export default function Works() {
               key={i}
               whileHover={{ scale: 1.02 }}
               onClick={() => handleManualSelect(work)}
-              className={`p-4 rounded-lg border cursor-pointer transition-all duration-300 ${
+              className={`p-4 rounded-lg border  cursor-pointer transition-all duration-300 flex items-center gap-x-9 ${
                 activeWork.title === work.title
                   ? "bg-primary/10 border-primary"
-                  : "hover:bg-primary/5 border-transparent"
+                  : "hover:bg-primary/5 border-primary/5"
               }`}
             >
-              <h4 className="text-lg font-semibold text-default-900">{work.title}</h4>
-              {work.position && <p className="text-default-600">{work.position}</p>}
-              <p className="text-sm text-default-500">{work.period} — {work.place}</p>
+              <img
+                src={work.place_logo}
+                className="w-12"
+              /> 
+              <div>
+                <h4 className="text-lg font-semibold text-default-900">{work.title}</h4>
+                {work.position && <p className="text-default-600">{work.position}</p>}
+                <p className="text-sm text-default-500">{work.period} — {work.place}</p>
+              </div>
             </motion.div>
           );
 

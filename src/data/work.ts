@@ -4,16 +4,18 @@ export const works = [
     title: "Backend Engineer Intern — ShowUp",
     position: "Backend Engineer Intern",
     place: "PT Inovasi Progresif Medika",
-    period: "Jul 2025 – Sep 2025",
+    place_logo : "/companies/medischa.png",
+    period: "Jul 2025 – November 2025",
     description:
       "Developed health insights through data processing and AI model integration for patient reports. Designed and deployed the ShowUp app using Flask, Laravel, ReactJS, and MySQL with a downloadable PDF health report feature.",
-    technologies: ["flask", "vite", "python", "docker", "mysql"],
+    technologies: ["flask", "vite", "python", "mysql"],
     images: ["/works/showup1.png", "/works/showup2.png"],
   },
   {
     title: "Backend Developer Intern — POS FNB Lakeside Website",
     position: "Backend Developer Intern",
-    place: "CAATIS (Telkom University)",
+    place: "CAATIS, Telkom University",
+    place_logo : "/companies/CAATIS.png",
     period: "Jun 2024 – Aug 2024",
     description:
       "Developed backend services for a campus food & beverage POS system. Designed Laravel-based APIs, handled order processing, and improved integration between backend and frontend systems.",
@@ -24,6 +26,7 @@ export const works = [
     title: "Practicum Assistant",
     position: "Lab Instructor",
     place: "Informatics Lab, Telkom University",
+    place_logo : "/companies/iflab.png",
     period: "Feb 2024 – Jun 2025",
     description:
       "Assisted 500+ students over 3 semesters across 5 core courses, including Software Testing, Architecture & Design, and Operating Systems. Guided hands-on exercises with Java, Spring Boot, and process management simulations.",
@@ -41,6 +44,7 @@ export const works = [
     title: "Lecturer Assistant",
     position: "Teaching Assistant",
     place: "Telkom University",
+    place_logo : "/companies/iftelkom.png",
     period: "Sep 2022 – Jun 2025",
     description:
       "Supported lectures for Operating Systems, Logic Mathematics, and Intro to Programming. Evaluated assignments and delivered coding sessions to help students strengthen theoretical understanding.",
@@ -54,11 +58,22 @@ export const works = [
   },
 
   { header: "Projects" },
-
+  {
+    title: "Data Management System SMKN 10 Bandung",
+    position: "Fullstack Developer",
+    place: "CAATIS, Telkom University",
+    place_logo : "/companies/CAATIS.png",
+    period: "November 2025",
+    description:
+      "Developed a document management website to assist SMKN 10 Bandung staff in organizing school-related documents.",
+    technologies: ["flask", "vite", "laravel", "mysql"],
+    images: ["/works/dmssmkn10-1.png", "/works/dmssmkn10-2.png"],
+  },
   {
     title: "Presentia — Automated Attendance System",
     position: "Backend Developer | CAATIS Lab Researcher",
     place: "Telkom University",
+    place_logo : "/companies/CAATIS.png",
     period: "Sep 2024 – Aug 2025",
     description:
       "Built a SaaS attendance system used by multiple schools with 1,000+ daily records. Developed 100+ REST APIs using Laravel with multi-tenant database models for secure data isolation.",
@@ -76,6 +91,7 @@ export const works = [
     title: "DetectMe — Healthcare App for Prenatal Tracking",
     position: "Fullstack Developer",
     place: "Telkom University, ITB & Unpad Collaboration",
+    place_logo : "/companies/telkom.png",
     period: "May 2025 – Sep 2025",
     description:
       "Built an app to help health centers monitor prenatal conditions. Implemented real-time tracking with WebSocket using Socket.IO, developed Flutter mobile and React Vite web apps integrated with Laravel/Express backend.",
@@ -98,8 +114,9 @@ export const works = [
   },
   {
     title: "SMKN 10 Bandung Website",
-    position: "Fullstack Developer | CAATIS Lab Researcher",
+    position: "Fullstack Developer",
     place: "CAATIS, Telkom University",
+    place_logo : "/companies/CAATIS.png",
     period: "Mar 2024 – Jun 2024",
     description:
       "Delivered a digital school platform for admissions, announcements, and internal communication. Built with Laravel, Inertia.js, and ReactJS using TailwindCSS for the frontend.",
@@ -114,6 +131,7 @@ export const works = [
     title: "CardiaInsight — AI for Cardiovascular Diagnosis",
     position: "AI Developer",
     place: "WRAP RESEARCHSHIP — Telemedicine AI Program",
+    place_logo : "/companies/telkom.png",
     period: "Feb 2024 – Jun 2024",
     description:
       "Developed a Random Forest model with 74% validation accuracy for heart disease detection and Flask REST APIs for prediction services. Integrated ML model into a web platform for real-time AI-assisted diagnosis.",
@@ -124,6 +142,7 @@ export const works = [
     title: "Tel-U Project Website",
     position: "Fullstack Developer | Final Course Project",
     place: "Telkom University",
+    place_logo : "/companies/telkom.png",
     period: "Sep 2023 – Dec 2023",
     description:
       "Built a role-based project management app with React and ExpressJS for lecturers and students. Focused on modular architecture and authentication. Earned an A grade for completion.",
@@ -134,6 +153,7 @@ export const works = [
     title: "On-demand Data Sharding Platform",
     position: "Frontend Developer",
     place: "TIDB Future App Hackathon 2023",
+    place_logo : "/companies/telkom.png",
     period: "Jun 2023 – Aug 2023",
     description:
       "Built a data sharding dashboard using vanilla HTML, CSS, JS, and Bootstrap 5. Reached Top 60 among 1,492 global participants in the hackathon.",
@@ -143,6 +163,7 @@ export const works = [
     title: "TakeCare — Health Management App",
     position: "Fullstack Developer | Final OOP Project",
     place: "Telkom University",
+    place_logo : "/companies/telkom.png",
     period: "Jun 2023",
     description:
       "Developed a CRUD-based web app using Spring MVC and MySQL. Implemented JWT authentication for secure access. Completed independently in 2 weeks and earned an A grade.",
