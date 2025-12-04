@@ -215,7 +215,7 @@ export default function About() {
       leading-snug
     "
             >
-              Technologies I Work With
+              Technologies I have work with
             </div>
 
             {/* Paginator */}
@@ -365,8 +365,7 @@ export default function About() {
                     Telkom University
                   </div>
                   <div className="text-sm md:text-base text-default-600">
-                    Bachelor of Technology, Software Enginering, Cumulative GPA
-                    : 3.93/4.00
+                  Bachelor of Science in Computer Science (Software Engineering), Cum Laude | GPA : 3.93/4.00
                   </div>
                 </div>
 
@@ -377,9 +376,8 @@ export default function About() {
 
               <div className="mt-3 text-sm md:text-base text-default-700 leading-relaxed">
                 Focused on software engineering, web development, data
-                structures, and AI-related coursework. Actively involved for 2
-                years in organizing campus events, coordinating student
-                activities, and collaborating across departments.
+                structures, and AI-related coursework. Actively involved in organizing campus events, 
+                coordinating student activities, collaborating across departments, and Competitions.
               </div>
             </div>
           </div>

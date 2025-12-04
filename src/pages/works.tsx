@@ -7,9 +7,9 @@ import { Accordion, AccordionItem } from "@heroui/accordion";
 import { techIcons } from "@/data/tech-Icons";
 import { works } from "@/data/work";
 import { useWorks } from "@/context/works-context";
+import ProductIcon from "@mui/icons-material/CallMadeOutlined";
 
 export default function Works() {
-  
   const { activeWork, setActiveWork } = useWorks();
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const manualSelect = useRef(false);
@@ -52,15 +52,43 @@ export default function Works() {
           transition={{ duration: 0.4 }}
           className="max-w-lg text-left space-y-4"
         >
-          <h2 className="text-3xl font-bold text-foreground">{activeWork.title}</h2>
-          {activeWork.position && <p className="text-default-500">{activeWork.position}</p>}
-          <p className="text-default-700 leading-relaxed">{activeWork.description}</p>
+          <h2 className="text-3xl font-bold text-foreground">
+            {activeWork.title}
+          </h2>
+          {activeWork.position && (
+            <p className="text-default-500">{activeWork.position}</p>
+          )}
+          {activeWork.link && (
+            <a
+              href={activeWork.link}
+              target="_blank"
+              rel="noreferrer"
+              className="
+                inline-flex items-center gap-2 w-fit
+                px-4 py-2 rounded-md
+                bg-primary text-primary-foreground
+                hover:bg-primary/90 transition
+                text-sm font-medium
+              "
+            >
+              View Product
+              <span aria-hidden>
+                <ProductIcon className="!w-5 !font-bold" />
+              </span>
+            </a>
+          )}
+          <p className="text-default-700 leading-relaxed">
+            {activeWork.description}
+          </p>
           {activeWork.images && <WorkCarousel images={activeWork.images} />}
 
           {activeWork.technologies && (
             <div className="flex gap-3 flex-wrap mt-3">
               {activeWork.technologies.map((tech) => (
-                <div className=" gap-x-2 flex items-center px-4 py-3 rounded-md group" key={tech}>  
+                <div
+                  className=" gap-x-2 flex items-center px-4 py-3 rounded-md group"
+                  key={tech}
+                >
                   <img
                     key={tech}
                     src={techIcons[tech].logo}
@@ -70,13 +98,10 @@ export default function Works() {
                   <div className="text-default-800 font-medium cursor-default">
                     {techIcons[tech].name}
                   </div>
-                  
                 </div>
               ))}
             </div>
           )}
-
-          
         </motion.div>
       </div>
 
@@ -85,7 +110,10 @@ export default function Works() {
         {works.map((work, i) => {
           if (work?.header)
             return (
-              <h3 key={i + 100} className="text-2xl font-semibold mb-6 text-foreground">
+              <h3
+                key={i + 100}
+                className="text-2xl font-semibold mb-6 text-foreground"
+              >
                 {work.header}
               </h3>
             );
@@ -93,24 +121,40 @@ export default function Works() {
           const card = (
             <motion.div
               ref={(el) => (cardRefs.current[i] = el)}
-              data-index={i}
               key={i}
-              whileHover={{ scale: 1.02 }}
               onClick={() => handleManualSelect(work)}
-              className={`p-4 rounded-lg border  cursor-pointer transition-all duration-300 flex items-center gap-x-9 ${
-                activeWork.title === work.title
-                  ? "bg-primary/10 border-primary"
-                  : "hover:bg-primary/5 border-primary/5"
-              }`}
+              className={`
+    relative p-4 pl-6 rounded-lg border cursor-pointer transition-all duration-300
+    ${
+      activeWork.title === work.title
+        ? "bg-primary/10 border-primary"
+        : "hover:bg-primary/5 border-primary/5 hover:-translate-x-1"
+    }
+  `}
             >
-              <img
-                src={work.place_logo}
-                className="w-12"
-              /> 
-              <div>
-                <h4 className="text-lg font-semibold text-default-900">{work.title}</h4>
-                {work.position && <p className="text-default-600">{work.position}</p>}
-                <p className="text-sm text-default-500">{work.period} — {work.place}</p>
+              <div
+                className={`
+      absolute left-0 top-0 h-full  rounded-l-lg
+      ${activeWork.title === work.title ? "bg-primary w-1" : "bg-primary/20 w-0.5"}
+    `}
+              />
+
+              <div className="flex items-center gap-6">
+                <img
+                  src={work.place_logo}
+                  className="w-10 h-10 object-contain shrink-0 mt-1"
+                />
+                <div>
+                  <h4 className="text-lg font-semibold text-default-900">
+                    {work.title}
+                  </h4>
+                  {work.position && (
+                    <p className="text-default-600">{work.position}</p>
+                  )}
+                  <p className="text-sm text-default-500">
+                    {work.period} — {work.place}
+                  </p>
+                </div>
               </div>
             </motion.div>
           );
@@ -120,7 +164,7 @@ export default function Works() {
               <div className="pb-6" ref={(el) => (cardRefs.current[i] = el)}>
                 {card}
               </div>
-            )
+            );
           }
 
           return card;
@@ -132,43 +176,138 @@ export default function Works() {
         <Accordion
           variant="splitted"
           itemClasses={{
-            base: "bg-background border border-default-100 rounded-lg mb-2 text-foreground/70",
-            title: "font-semibold text-lg text-default-900",
-            content: "text-default-700 pt-2",
+            base: `
+        relative overflow-hidden
+        bg-background border border-primary/10 rounded-lg mb-3
+        text-foreground transition-all duration-300
+        data-[open=true]:bg-primary/10 data-[open=true]:border-primary
+      `,
+            // title row wrapper
+            titleWrapper: "flex  py-3 px-2",
+            // title text
+            title: "font-semibold text-base text-default-900",
+            // subtitle text (period—place)
+            subtitle: "text-xs text-default-500 mt-0.5",
+            // content area
+            content: "text-default-700 pt-2 pb-4 px-4",
+            // indicator (chevron)
+            indicator: "text-default-500 data-[open=true]:text-primary",
           }}
         >
           {works.map((work, i) =>
             work.header ? (
-              <AccordionItem key={i} title={work.header} className="text-xl font-bold mt-6 mb-2 text-danger bg-background" hideIndicator isDisabled={true} />
-
-            ) : (
+              // ==== Section header (non-clickable) ====
               <AccordionItem
-                key={i}
+                key={`header-${i}`}
+                title={work.header}
+                hideIndicator
+
+                className="
+            !bg-transparent !border-0 !shadow-none
+            pointer-events-none
+             mb-2 px-0
+          "
+                // Header Style
+                classNames={{
+                  title: "text-2xl mt-4 font-semibold text-foreground opacity-100",
+                  titleWrapper: "px-0 py-0",
+                }}
+              />
+            ) : (
+              // ==== Work item ====
+              <AccordionItem
+                key={`work-${i}`}
                 aria-label={work.title}
-                title={work.title}
-                subtitle={work.period ? `${work.period} — ${work.place}` : undefined}
+                title={
+                  <div className="flex items-center gap-6 min-w-0">
+                    {/* logo */}
+                    <img
+                      src={work.place_logo}
+                      alt={work.place}
+                      className="w-9 h-9 object-contain shrink-0"
+                    />
+
+                    {/* title + meta */}
+                    <div className="min-w-0 flex-1">
+                      <div className="text-default-900 font-semibold whitespace-normal break-words leading-snug">
+                        {work.title}
+                      </div>
+                      <div className="text-xs text-default-500 whitespace-normal break-words leading-snug mt-0.5">
+                        {work.period} — {work.place}
+                      </div>
+                    </div>
+                  </div>
+                }
+                // left accent bar like desktop
+                startContent={
+                  <div
+                    className={`absolute left-0 top-0 h-full rounded-l-lg transition-all
+                      w-0.5 bg-primary/20 data-[open=true]:w-1 data-[open=true]:bg-primary
+                    `}
+                  />
+                }
               >
                 <div className="flex flex-col gap-3 text-left">
                   {work.position && (
-                    <p className="text-default-500 font-medium">{work.position}</p>
+                    <p className="text-default-600 font-medium text-sm">
+                      {work.position}
+                    </p>
+                  )}
+                  {work.link && (
+                    <a
+                      href={work.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="
+                        inline-flex items-center gap-2 w-fit
+                        px-4 py-2 rounded-md
+                        bg-primary text-primary-foreground
+                        hover:bg-primary/90 transition
+                        text-sm font-medium
+                        mt-1
+                      "
+                      onClick={(e) => e.stopPropagation()} // optional safety
+                    >
+                      View Product
+                      <ProductIcon className="w-5" />
+                    </a>
                   )}
                   <p className="text-default-700 leading-relaxed text-sm">
                     {work.description}
                   </p>
+
                   {work.images && (
-                    <div className="">
+                    <div className="rounded-md overflow-hidden">
                       <WorkCarousel images={work.images} />
                     </div>
                   )}
+
                   {work.technologies && (
-                    <div className="flex flex-wrap gap-3 my-3 justify-center">
+                    <div className="flex flex-wrap gap-3 pt-2">
                       {work.technologies.map((tech) => (
-                        <img
+                        <div
                           key={tech}
-                          src={techIcons[tech].logo}
-                          alt={tech}
-                          className={`w-6 h-6 opacity-70 hover:opacity-100 transition ${techIcons[tech].needsInvertion ? "dark:invert" : ""}`}
-                        />
+                          className="
+                      flex items-center gap-2 px-3 py-2 rounded-md
+                      bg-transparent border border-transparent
+                      hover:bg-muted/40 hover:border-border/60
+                      transition
+                    "
+                        >
+                          <img
+                            src={techIcons[tech].logo}
+                            alt={tech}
+                            className={`
+                              "w-5 h-5 opacity-70 group-hover:opacity-100 transition",
+                              techIcons[tech].needsInvertion
+                                ? "dark:invert"
+                                : ""
+                            `}
+                          />
+                          <span className="text-xs text-default-800 font-medium">
+                            {techIcons[tech].name}
+                          </span>
+                        </div>
                       ))}
                     </div>
                   )}

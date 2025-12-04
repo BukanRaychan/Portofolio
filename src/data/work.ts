@@ -3,6 +3,7 @@ export const works = [
   {
     title: "Backend Engineer Intern — ShowUp",
     position: "Backend Engineer Intern",
+    link: "https://showup.cloud",
     place: "PT Inovasi Progresif Medika",
     place_logo : "/companies/medischa.png",
     period: "Jul 2025 – November 2025",
@@ -29,7 +30,7 @@ export const works = [
     place_logo : "/companies/iflab.png",
     period: "Feb 2024 – Jun 2025",
     description:
-      "Assisted 500+ students over 3 semesters across 5 core courses, including Software Testing, Architecture & Design, and Operating Systems. Guided hands-on exercises with Java, Spring Boot, and process management simulations.",
+      "Assisted 500+ students over 3 semesters across 5 core courses, including Software Testing, Architecture & Design, Operating Systems, Object Oriented Programming, and Programming Algrorithm. Guided hands-on exercises with Java, Spring Boot, Go, and process management simulations.",
     technologies: ["java", "springboot", "python", "go", "c"],
     images: [
       "/works/practicum1.jpg",
@@ -61,17 +62,19 @@ export const works = [
   {
     title: "Data Management System SMKN 10 Bandung",
     position: "Fullstack Developer",
+    link: "https://dms.smkn10bandung.sch.id",
     place: "CAATIS, Telkom University",
     place_logo : "/companies/CAATIS.png",
     period: "November 2025",
     description:
       "Developed a document management website to assist SMKN 10 Bandung staff in organizing school-related documents.",
-    technologies: ["flask", "vite", "laravel", "mysql"],
+    technologies: ["react", "vite", "laravel", "mysql"],
     images: ["/works/dmssmkn10-1.png", "/works/dmssmkn10-2.png"],
   },
   {
     title: "Presentia — Automated Attendance System",
     position: "Backend Developer | CAATIS Lab Researcher",
+    link: "https://presentia.matradipti.org",
     place: "Telkom University",
     place_logo : "/companies/CAATIS.png",
     period: "Sep 2024 – Aug 2025",
@@ -90,6 +93,7 @@ export const works = [
   {
     title: "DetectMe — Healthcare App for Prenatal Tracking",
     position: "Fullstack Developer",
+    link: "https://detectme.id",
     place: "Telkom University, ITB & Unpad Collaboration",
     place_logo : "/companies/telkom.png",
     period: "May 2025 – Sep 2025",
@@ -115,6 +119,7 @@ export const works = [
   {
     title: "SMKN 10 Bandung Website",
     position: "Fullstack Developer",
+    link: "https://smkn10bandung.sch.id",
     place: "CAATIS, Telkom University",
     place_logo : "/companies/CAATIS.png",
     period: "Mar 2024 – Jun 2024",
@@ -128,10 +133,22 @@ export const works = [
     ],
   },
   {
+    title: "PPM — Research and Inovation Dashboard ",
+    position: "Backend Developer",
+    link: "https://ppm.matradipti.org/",
+    place: "CAATIS, Telkom University",
+    place_logo : "/companies/CAATIS.png",
+    period: "Sep 2024 – Feb 2025",
+    description:
+      "Integration PPM data from SINTA & lecturer activity platform, Collaborated with frontend developers",
+    technologies: ["laravel", "mysql"],
+    images: ["/works/ppm1.png", "/works/ppm2.png", "/works/ppm3.png"],
+  },
+  {
     title: "CardiaInsight — AI for Cardiovascular Diagnosis",
     position: "AI Developer",
     place: "WRAP RESEARCHSHIP — Telemedicine AI Program",
-    place_logo : "/companies/telkom.png",
+    place_logo : "/companies/humic.png",
     period: "Feb 2024 – Jun 2024",
     description:
       "Developed a Random Forest model with 74% validation accuracy for heart disease detection and Flask REST APIs for prediction services. Integrated ML model into a web platform for real-time AI-assisted diagnosis.",
