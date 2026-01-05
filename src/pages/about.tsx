@@ -5,6 +5,11 @@ import ChevronRight from "@mui/icons-material/ChevronRight";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { techIcons } from "@/data/tech-Icons";
 import telkom from "@/assets/images/telkom.png";
+import Marquee from "react-fast-marquee";
+
+const marqueeResponsive = {
+  desktop: { breakpoint: { max: 3000, min: 0 }, items: 6 },
+};
 
 const imageModules = import.meta.glob("../assets/images/about/*.jpg", {
   eager: true,
@@ -127,70 +132,47 @@ export default function About() {
 
   return (
     <section className="flex flex-col items-center text-center relative h-full w-full ">
-      <div className="relative overflow-hidden  flex-col flex gap-1 ">
+      <div className="relative overflow-hidden flex-col max-w-dvw flex gap-1.5">
         {/* Top moving row */}
-        <motion.div
-          className="flex gap-1 w-full relative"
-          animate={{ x: ["0%", "-100%"] }}
-          transition={{
-            duration: 80,
-            ease: "linear",
-            repeat: Infinity,
-          }}
+        <Marquee
+          speed={30} // adjust to match your 80s Framer Motion feel
+          gradient={false}
+          pauseOnHover={false}
+          direction="left"
         >
-          {[
-            ...topImages,
-            ...topImages,
-            ...topImages,
-            ...topImages,
-            ...topImages,
-          ].map((img, i) => (
-            <motion.div
+          {topImages.map((img, i) => (
+            <div
               key={`top-${i}`}
-              className="flex-shrink-0"
-              whileHover={{ zIndex: 30 }}
-              transition={{ type: "spring", stiffness: 300 }}
+              className="ml-1.5 flex-shrink-0 hover:z-30 transition-transform"
             >
-              <motion.img
+              <img
                 src={img}
-                alt={`top-${i}`}
-                className=" lg:h-[250px] h-[200px] rounded-md w-auto object-cover transition-all duration-300  opacity-80"
+                alt=""
+                className="h-[200px] lg:h-[250px] w-auto rounded-md object-cover opacity-80"
               />
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </Marquee>
 
-        {/* Bottom moving row (reverse direction) */}
-        <motion.div
-          className="flex gap-1 w-full relative"
-          animate={{ x: ["-100%", "0%"] }}
-          transition={{
-            duration: 80,
-            ease: "linear",
-            repeat: Infinity,
-          }}
+        <Marquee
+          speed={30}
+          gradient={false}
+          pauseOnHover={false}
+          direction="right"
         >
-          {[
-            ...bottomImages,
-            ...bottomImages,
-            ...bottomImages,
-            ...bottomImages,
-            ...bottomImages,
-          ].map((img, i) => (
-            <motion.div
+          {bottomImages.map((img, i) => (
+            <div
               key={`bottom-${i}`}
-              className="flex-shrink-0"
-              whileHover={{ zIndex: 30 }}
-              transition={{ type: "spring", stiffness: 300 }}
+              className="ml-1.5 flex-shrink-0 hover:z-30 transition-transform"
             >
-              <motion.img
+              <img
                 src={img}
-                alt={`bottom-${i}`}
-                className="lg:h-[250px] h-[200px] rounded-md w-auto object-cover transition-all duration-300 "
+                alt=""
+                className="h-[200px] lg:h-[250px] w-auto rounded-md object-cover"
               />
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </Marquee>
 
         {/* ===== Skills / Logos / Arrows overlay ===== */}
         <div
@@ -215,7 +197,7 @@ export default function About() {
       leading-snug
     "
             >
-              Technologies I have work with
+              Tech Stack
             </div>
 
             {/* Paginator */}
@@ -340,7 +322,7 @@ export default function About() {
         </div>
 
         {/* bottom fade */}
-        <div className="pointer-events-none absolute bottom-0 left-0 h-40 w-full">
+        <div className="pointer-events-none absolute bottom-0 left-0 h-40 w-full z-10">
           <div className="absolute inset-0 bg-gradient-to-t from-background/100 to-background/0 blur-md" />
           <div className="absolute inset-0 bg-gradient-to-t from-background/100 to-background/0" />
         </div>
@@ -365,7 +347,8 @@ export default function About() {
                     Telkom University
                   </div>
                   <div className="text-sm md:text-base text-default-600">
-                  Bachelor of Science in Computer Science (Software Engineering), Cum Laude | GPA : 3.93/4.00
+                    Bachelor of Science in Computer Science (Software
+                    Engineering), Cum Laude | GPA : 3.93/4.00
                   </div>
                 </div>
 
@@ -376,8 +359,9 @@ export default function About() {
 
               <div className="mt-3 text-sm md:text-base text-default-700 leading-relaxed">
                 Focused on software engineering, web development, data
-                structures, and AI-related coursework. Actively involved in organizing campus events, 
-                coordinating student activities, collaborating across departments, and Competitions.
+                structures, and AI-related coursework. Actively involved in
+                organizing campus events, coordinating student activities,
+                collaborating across departments, and Competitions.
               </div>
             </div>
           </div>
