@@ -16,12 +16,11 @@ export default function Works() {
 
   useEffect(() => {
     const index = works.findIndex((w) => w.title === activeWork.title);
-    console.log(window.innerWidth, window.devicePixelRatio);
     if (window.location.hash != "#works") return;
     if (index >= 0) {
-      if (index <= 3) {
+      if (index <= 4) {
         scrollToSection("works");
-      } else if (index >= works.length - 4) {
+      } else if (index >= works.length - 5) {
         cardRefs.current[works.length - 1]?.scrollIntoView({
           behavior: "smooth",
           block: "end",
@@ -360,7 +359,7 @@ function WorkCarousel({ images, interval = 2500 }: WorkCarouselProps) {
             key={i}
             src={img}
             alt={`img-${i}`}
-            className="w-full h-64 object-cover flex-shrink-0"
+            className="aspect-video object-cover flex-shrink-0"
           />
         ))}
       </motion.div>

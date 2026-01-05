@@ -69,7 +69,7 @@ export const works = [
     description:
       "Developed a document management website to assist SMKN 10 Bandung staff in organizing school-related documents.",
     technologies: ["react", "vite", "laravel", "mysql"],
-    images: ["/works/dmssmkn10-1.png", "/works/dmssmkn10-2.png"],
+    images: ["/works/dmssmkn10-1.png", "/works/dmssmkn10-2.png", "/works/dmssmkn10-3.png", "/works/dmssmkn10-4.png"],
   },
   {
     title: "Presentia — Automated Attendance System",
