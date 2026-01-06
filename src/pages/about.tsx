@@ -2,13 +2,43 @@ import { motion } from "framer-motion";
 import { Chip } from "@heroui/chip";
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import ChevronRight from "@mui/icons-material/ChevronRight";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo } from "react";
 import { techIcons } from "@/data/tech-Icons";
 import telkom from "@/assets/images/telkom.png";
 import Marquee from "react-fast-marquee";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
-const marqueeResponsive = {
-  desktop: { breakpoint: { max: 3000, min: 0 }, items: 6 },
+const techResponsive = {
+  mobile: {
+    breakpoint: { max: 639, min: 0 },
+    items: 3,
+  },
+  tablet: {
+    breakpoint: { max: 1023, min: 640 },
+    items: 4,
+  },
+  desktop: {
+    breakpoint: { max: 1279, min: 1024 },
+    items: 5,
+  },
+  wide: {
+    breakpoint: { max: 3000, min: 1280 },
+    items: 8,
+  },
+};
+
+const CustomDot = ({ onClick, active }: any) => {
+  return (
+    <button
+      onClick={onClick}
+      className={`
+        h-1.5 rounded-full transition-all duration-300 mx-1 
+        ${active ? "w-8 bg-foreground/90" : "w-3 bg-foreground/30 hover:bg-foreground/50"}
+      `}
+      aria-label="carousel dot"
+    />
+  );
 };
 
 const imageModules = import.meta.glob("../assets/images/about/*.jpg", {
@@ -39,286 +69,108 @@ type ChipColor =
   | "warning"
   | "primary";
 const chipColors: ChipColor[] = ["primary", "secondary", "success", "danger"];
+const MARQUEE_REPEAT = 2;
 
 export default function About() {
-  const logosRef = useRef<HTMLDivElement>(null);
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  const [perPage, setPerPage] = useState(8);
-  const [pages, setPages] = useState<number[][]>([]);
-  const [activePage, setActivePage] = useState(0);
-
   const items = useMemo(() => Object.entries(techIcons), []);
-  const totalItems = items.length;
-
-  const autoPlayRef = useRef(true);
-
-  useEffect(() => {
-    if (!pages.length) return;
-    const id = setInterval(() => {
-      if (!autoPlayRef.current) return;
-
-      const next = (activePage + 1) % pages.length;
-      scrollToPage(next);
-    }, 2000); // 👈 speed: 3.5s per slide (change as you like)
-
-    return () => clearInterval(id);
-  }, [activePage, pages.length]);
-
-  useEffect(() => {
-    const computePerPage = () => {
-      const w = wrapperRef.current?.clientWidth ?? window.innerWidth;
-
-      // Tailwind-ish breakpoints:
-      // mobile < 640
-      // tablet 640–1023
-      // desktop >= 1024
-      let pp = 3; // mobile
-      if (w >= 640) pp = 4; // tablet
-      if (w >= 1024) pp = 5; // desktop
-      if (w >= 1280) pp = 8;
-      setPerPage(pp);
-    };
-
-    computePerPage();
-    window.addEventListener("resize", computePerPage);
-
-    const ro = new ResizeObserver(computePerPage);
-    if (wrapperRef.current) ro.observe(wrapperRef.current);
-
-    return () => {
-      ro.disconnect();
-      window.removeEventListener("resize", computePerPage);
-    };
-  }, []);
-
-  useEffect(() => {
-    const indices = [...Array(totalItems)].map((_, i) => i);
-    const chunks: number[][] = [];
-
-    for (let i = 0; i < totalItems; i += perPage) {
-      chunks.push(indices.slice(i, i + perPage));
-    }
-
-    const last = chunks[chunks.length - 1] ?? [];
-    if (last.length < perPage) {
-      const need = perPage - last.length;
-      last.push(...indices.slice(0, need));
-    }
-
-    setPages(chunks);
-    setActivePage(0);
-
-    const el = logosRef.current;
-    if (el) el.scrollLeft = 0;
-  }, [perPage, totalItems]);
-
-  const scrollToPage = (idx: number) => {
-    const el = logosRef.current;
-    if (!el) return;
-    el.scrollTo({ left: idx * el.clientWidth, behavior: "smooth" });
-  };
-
-  const scrollBy = (dir: "left" | "right") => {
-    const el = logosRef.current;
-    if (!el) return;
-
-    const next = dir === "left" ? activePage - 1 : activePage + 1;
-
-    const target = (next + pages.length) % pages.length;
-    scrollToPage(target);
-  };
 
   return (
     <section className="flex flex-col items-center text-center relative h-full w-full ">
-      <div className="relative overflow-hidden flex-col max-w-dvw flex gap-1.5">
+      <div className="relative overflow-hidden flex-col flex gap-1.5">
         {/* Top moving row */}
         <Marquee
-          speed={30} // adjust to match your 80s Framer Motion feel
+          speed={20}
           gradient={false}
           pauseOnHover={false}
           direction="left"
         >
-          {topImages.map((img, i) => (
-            <div
-              key={`top-${i}`}
-              className="ml-1.5 flex-shrink-0 hover:z-30 transition-transform"
-            >
-              <img
-                src={img}
-                alt=""
-                className="h-[200px] lg:h-[250px] w-auto rounded-md object-cover opacity-80"
-              />
-            </div>
-          ))}
+          {Array.from({ length: MARQUEE_REPEAT }).flatMap((_, r) =>
+            topImages.map((img, i) => (
+              <div key={`${r}-${i}`} className="ml-1.5 flex-shrink-0">
+                <img
+                  src={img}
+                  alt=""
+                  className="h-[clamp(160px,25dvh,25dvh)] w-auto rounded-md object-cover"
+                />
+              </div>
+            ))
+          )}
         </Marquee>
 
         <Marquee
-          speed={30}
+          speed={20}
           gradient={false}
           pauseOnHover={false}
           direction="right"
         >
-          {bottomImages.map((img, i) => (
-            <div
-              key={`bottom-${i}`}
-              className="ml-1.5 flex-shrink-0 hover:z-30 transition-transform"
-            >
-              <img
-                src={img}
-                alt=""
-                className="h-[200px] lg:h-[250px] w-auto rounded-md object-cover"
-              />
-            </div>
-          ))}
+          {Array.from({ length: MARQUEE_REPEAT }).flatMap((_, r) =>
+            bottomImages.map((img, i) => (
+              <div key={`${r}-${i}`} className="ml-1.5 flex-shrink-0">
+                <img
+                  src={img}
+                  alt=""
+                  className="h-[clamp(160px,25dvh,25dvh)] w-auto rounded-md object-cover"
+                />
+              </div>
+            ))
+          )}
         </Marquee>
 
         {/* ===== Skills / Logos / Arrows overlay ===== */}
-        <div
-          className="
-          absolute bottom-0 translate-y-2 left-0 w-full z-30
-        "
-        >
-          <div
-            className="
-    px-4 sm:px-8 lg:px-12 pb-4 text-default-900
-    flex flex-col gap-3
-    sm:flex-row sm:items-end sm:justify-between
-  "
-          >
-            {/* Title */}
-            <div
-              className="
-      text-base sm:text-2xl lg:text-3xl
-      font-semibold
-      text-start
-      sm:max-w-[70%]
-      leading-snug
-    "
-            >
-              Tech Stack
-            </div>
+        <div className="absolute bottom-0 left-0 w-full z-30 ">
+          {/* Title + dots row */}
+          <div className="px-4 sm:px-8 lg:px-12 pb-4 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+            <div className="text-3xl font-semibold text-start">Tech Stack</div>
+          </div>
 
-            {/* Paginator */}
-            <div className="flex justify-start sm:justify-center gap-2 sm:gap-3">
-              {pages.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => scrollToPage(i)}
-                  className={`
-          h-1.5 rounded-full transition-all duration-300
-          ${
-            i === activePage
-              ? "w-6 sm:w-8 bg-foreground/90"
-              : "w-2.5 sm:w-3 bg-foreground/30 hover:bg-foreground/50"
-          }
-        `}
-                  aria-label={`Go to page ${i + 1}`}
+          {/* Carousel */}
+          <Carousel
+            responsive={techResponsive}
+            slidesToSlide={3}
+            infinite
+            arrows
+            showDots
+            autoPlay
+            autoPlaySpeed={2000}
+            renderDotsOutside
+            customDot={<CustomDot />}
+            containerClass="relative"
+            dotListClass=""
+            itemClass="px-2"
+            customLeftArrow={
+              <button className="absolute left-0 z-40 grid place-items-center h-full w-10">
+                <ChevronLeft className="text-default-900 md:!text-4xl" />
+              </button>
+            }
+            customRightArrow={
+              <button className="absolute right-0 z-40 grid place-items-center h-full w-10">
+                <ChevronRight className="text-default-900 md:!text-4xl" />
+              </button>
+            }
+          >
+            {items.map(([key, item]) => (
+              <div
+                key={key}
+                className="
+                  flex items-center justify-center gap-4
+                  px-3 py-2 rounded-lg
+                  transition-all duration-300
+                  hover:bg-muted/40 hover:border-border/60
+                "
+              >
+                <img
+                  src={item.logo}
+                  alt={item.name}
+                  className={`h-6 md:h-12 object-contain ${
+                    item.needsInvertion ? "dark:invert" : ""
+                  }`}
                 />
-              ))}
-            </div>
-          </div>
-
-          <div
-            ref={wrapperRef}
-            onMouseEnter={() => (autoPlayRef.current = false)}
-            onMouseLeave={() => (autoPlayRef.current = true)}
-            className="
-            flex items-center
-            relative group
-          "
-          >
-            {/* Left arrow */}
-            <button
-              onClick={() => scrollBy("left")}
-              aria-label="Scroll skills left"
-              className="
-                absolute  
-                grid place-items-center
-                h-full w-9 
-                transition-all 
-                duration-100
-              "
-            >
-              <ChevronLeft
-                className="!text-sm md:!text-4xl text-default-900 scale-100 
-              !transition duration-75 md:-translate-x-2 -translate-x-1 !shadow-xl hover:scale-120"
-              />
-            </button>
-
-            {/* Logos (scrollable) */}
-            <div
-              ref={logosRef}
-              onScroll={() => {
-                const el = logosRef.current;
-                if (!el) return;
-                const idx = Math.round(el.scrollLeft / el.clientWidth);
-                setActivePage(Math.min(pages.length - 1, Math.max(0, idx)));
-              }}
-              className="
-                flex w-full overflow-x-auto scroll-smooth no-scrollbar
-                snap-x snap-mandatory
-              "
-            >
-              {pages.map((page, pageIdx) => (
-                <div
-                  key={pageIdx}
-                  className="w-full shrink-0 flex justify-center gap-4 snap-start px-3"
-                >
-                  {page.map((itemIdx, i) => {
-                    const [key, item] = items[itemIdx];
-                    return (
-                      <div
-                        // attach ref to the FIRST rendered card for measurement
-                        ref={pageIdx === 0 && i === 0 ? cardRef : undefined}
-                        key={`${key}-${pageIdx}-${i}`}
-                        className="
-                          flex items-center justify-center gap-4
-                          px-3 py-2 rounded-lg
-                          bg-transparent
-                          border border-transparent
-                          transition-all duration-300
-                          hover:bg-muted/40 hover:border-border/60
-                        "
-                        // dynamic width so exactly perPage fits
-                        style={{ width: `${100 / perPage}%` }}
-                      >
-                        <img
-                          src={item.logo}
-                          alt={item.name}
-                          className={`h-6 md:h-12  object-contain ${
-                            item.needsInvertion ? "dark:invert" : ""
-                          }`}
-                        />
-                        <span className="text-md md:text-lg text-foreground font-medium">
-                          {item.name}
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
-              ))}
-            </div>
-
-            {/* Right arrow */}
-            <button
-              onClick={() => scrollBy("right")}
-              className="
-              absolute  
-              grid place-items-center
-              h-full w-9 
-              transition-all 
-              duration-100 right-0
-            "
-              aria-label="Scroll skills right"
-            >
-              <ChevronRight
-                className="!text-sm md:!text-4xl text-default-900 scale-100 
-              !transition duration-75 md:-translate-x-2 translate-x-1 !shadow-xl hover:scale-120"
-              />
-            </button>
-          </div>
+                <span className="text-md md:text-lg font-medium">
+                  {item.name}
+                </span>
+              </div>
+            ))}
+          </Carousel>
         </div>
 
         {/* bottom fade */}
