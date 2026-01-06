@@ -15,29 +15,24 @@ html {
 
 @config "../../tailwind.config.js";
 
-.react-multi-carousel-dot-list {
+.about-carousel .react-multi-carousel-dot-list {
   position: absolute;
   top: -2.5rem;
-
-  /* 🔑 THIS IS THE MISSING PIECE */
   width: fit-content;
-
-  /* now right will work */
-  margin-left:auto;
-  margin-right:1rem;
-
+  margin-left: auto;
+  margin-right: 1rem;
   display: flex;
   align-items: center;
 }
 
 @media (min-width: 640px) {
-  .react-multi-carousel-dot-list {
-    right: 2rem;      /* sm:px-8 */
+  .about-carousel .react-multi-carousel-dot-list {
+    right: 2rem;
   }
 }
 
 @media (min-width: 1024px) {
-  .react-multi-carousel-dot-list {
-    right: 3rem;      /* lg:px-12 */
+  .about-carousel .react-multi-carousel-dot-list {
+    right: 3rem;
   }
 }

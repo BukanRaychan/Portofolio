@@ -6,7 +6,7 @@ export const works = [
     link: "https://showup.cloud",
     place: "PT Inovasi Progresif Medika",
     place_logo : "/companies/medischa.png",
-    period: "Jul 2025 – November 2025",
+    period: "Jul 2025 – Dec 2025",
     description:
       "Developed health insights through data processing and AI model integration for patient reports. Designed and deployed the ShowUp app using Flask, Laravel, ReactJS, and MySQL with a downloadable PDF health report feature.",
     technologies: ["flask", "vite", "python", "mysql"],
@@ -65,7 +65,7 @@ export const works = [
     link: "https://dms.smkn10bandung.sch.id",
     place: "CAATIS, Telkom University",
     place_logo : "/companies/CAATIS.png",
-    period: "November 2025",
+    period: "Nov 2025 - Dec 2025",
     description:
       "Developed a document management website to assist SMKN 10 Bandung staff in organizing school-related documents.",
     technologies: ["react", "vite", "laravel", "mysql"],
@@ -96,9 +96,9 @@ export const works = [
     link: "https://detectme.id",
     place: "Telkom University, ITB & Unpad Collaboration",
     place_logo : "/companies/telkom.png",
-    period: "May 2025 – Sep 2025",
+    period: "May 2025 – Dec 2025",
     description:
-      "Built an app to help health centers monitor prenatal conditions. Implemented real-time tracking with WebSocket using Socket.IO, developed Flutter mobile and React Vite web apps integrated with Laravel/Express backend.",
+      "Built several app to help health centers monitor prenatal conditions. Implemented real-time maternal and fetal conditions tracking ",
     technologies: [
       "flutter",
       "vite",

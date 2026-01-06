@@ -117,7 +117,7 @@ export default function About() {
         </Marquee>
 
         {/* ===== Skills / Logos / Arrows overlay ===== */}
-        <div className="absolute bottom-0 left-0 w-full z-30 ">
+        <div className="absolute bottom-0 left-0 w-full z-30 about-carousel">
           {/* Title + dots row */}
           <div className="px-4 sm:px-8 lg:px-12 pb-4 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
             <div className="text-3xl font-semibold text-start">Tech Stack</div>

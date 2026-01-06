@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef} from "react";
 import { motion } from "framer-motion";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -8,6 +8,9 @@ import { techIcons } from "@/data/tech-Icons";
 import { works } from "@/data/work";
 import { useWorks } from "@/context/works-context";
 import ProductIcon from "@mui/icons-material/CallMadeOutlined";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+
 
 export default function Works() {
   const { activeWork, setActiveWork } = useWorks();
@@ -200,7 +203,6 @@ export default function Works() {
                 key={`header-${i}`}
                 title={work.header}
                 hideIndicator
-
                 className="
             !bg-transparent !border-0 !shadow-none
             pointer-events-none
@@ -208,7 +210,8 @@ export default function Works() {
           "
                 // Header Style
                 classNames={{
-                  title: "text-2xl mt-4 font-semibold text-foreground opacity-100",
+                  title:
+                    "text-2xl mt-4 font-semibold text-foreground opacity-100",
                   titleWrapper: "px-0 py-0",
                 }}
               />
@@ -322,78 +325,96 @@ export default function Works() {
 
 interface WorkCarouselProps {
   images: string[];
-  interval?: number; // optional custom interval (ms)
+  height?: number;
 }
 
-function WorkCarousel({ images, interval = 2500 }: WorkCarouselProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+const responsive = {
+  all: {
+    breakpoint: { max: 3000, min: 0 },
+    items: 1,
+  },
+};
 
-  // Helper: move to next image
-  const next = () => setActiveIndex((prev) => (prev + 1) % images.length);
-  const prev = () =>
-    setActiveIndex((prev) => (prev - 1 + images.length) % images.length);
+function WorkCarousel({
+  images,
+}: WorkCarouselProps) {
 
-  // Auto-slide effect
-  useEffect(() => {
-    if (isPaused) return; // Pause when hovered
-    timeoutRef.current = setTimeout(next, interval);
-    return () => clearTimeout(timeoutRef.current!);
-  }, [activeIndex, isPaused, interval]);
+
+  const CustomDot = ({ onClick, active }: any) => {
+    return (
+      <button
+      onClick={onClick}
+      className={`w-3 h-1 mx-1 rounded-full transition-all duration-300 ${
+        active
+          ? "bg-primary scale-110"
+          : "bg-default-800 hover:bg-primary"
+      }`}
+    />
+    );
+  };
 
   return (
-    <div
-      className="relative mt-0 md:mt-5 w-full overflow-hidden rounded-sm shadow-lg group"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-    >
-      {/* Image track */}
-      <motion.div
-        className="flex"
-        animate={{ x: `-${activeIndex * 100}%` }}
-        transition={{ duration: 0.6, ease: "easeInOut" }}
+    <div className="relative w-full rounded-md overflow-hidden group">
+      <Carousel
+        responsive={responsive}
+        infinite
+        autoPlay
+        autoPlaySpeed={3000}
+        transitionDuration={400}          
+        arrows
+        customDot={<CustomDot />}
+        showDots
+        dotListClass="!mb-2"
+        draggable
+        swipeable
+        keyBoardControl
+        containerClass="w-full"
+        itemClass="px-1"                  
+        customLeftArrow={
+          <button
+            className="
+              absolute left-3 top-1/2 -translate-y-1/2 z-50
+              bg-black/10 text-white p-1 rounded-full
+              opacity-0 group-hover:opacity-100
+              hover:bg-black/50 transition
+            "
+          >
+            <ChevronLeftIcon />
+          </button>
+        }
+        customRightArrow={
+          <button
+            className="
+              absolute right-3 top-1/2 -translate-y-1/2 z-50
+              bg-black/10 text-white p-1 rounded-full
+              opacity-0 group-hover:opacity-100
+              hover:bg-black/50 transition
+            "
+          >
+            <ChevronRightIcon />
+          </button>
+        }
       >
         {images.map((img, i) => (
-          <img
+          <div
             key={i}
-            src={img}
-            alt={`img-${i}`}
-            className="aspect-video object-cover flex-shrink-0"
-          />
-        ))}
-      </motion.div>
+            className="w-full overflow-hidden rounded-sm"
 
-      {/* Navigation arrows */}
-      <button
-        onClick={prev}
-        className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/10 text-white p-1.5 rounded-full scale-75
-                    opacity-0 group-hover:opacity-100 transition hover:bg-black/50 cursor-pointer"
-      >
-        <ChevronLeftIcon />
-      </button>
-      <button
-        onClick={next}
-        className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/10 text-white p-1.5 rounded-full scale-75
-                    opacity-0 group-hover:opacity-100 transition hover:bg-black/50 cursor-pointer"
-      >
-        <ChevronRightIcon />
-      </button>
-
-      {/* Dots indicator */}
-      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 gap-2 flex group-hover:opacity-100 opacity-0 transition">
-        {images.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setActiveIndex(i)}
-            className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-              activeIndex === i
-                ? "bg-primary scale-110"
-                : "bg-default-800 hover:bg-primary"
-            }`}
-          />
+          >
+            <img
+              src={img}
+              alt={`img-${i}`}
+              className="
+                h-full
+                w-full
+                aspect-video
+                object-cover
+                rounded-sm
+              "
+            />
+          </div>
         ))}
-      </div>
+      </Carousel>
     </div>
   );
 }
