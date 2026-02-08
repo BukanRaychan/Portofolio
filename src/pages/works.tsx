@@ -1,4 +1,4 @@
-import { useEffect, useRef} from "react";
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -10,7 +10,6 @@ import { useWorks } from "@/context/works-context";
 import ProductIcon from "@mui/icons-material/CallMadeOutlined";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-
 
 export default function Works() {
   const { activeWork, setActiveWork } = useWorks();
@@ -43,9 +42,9 @@ export default function Works() {
     setTimeout(() => (manualSelect.current = false), 800);
   };
   return (
-    <div className="md:flex">
+    <div className="lg:flex">
       {/* ===== DESKTOP VIEW ===== */}
-      <div className="hidden md:flex sticky top-[60px] h-[calc(100dvh-60px)] w-1/2 flex-col justify-center items-center bg-background p-8">
+      <div className="hidden lg:flex sticky top-[60px] h-[calc(100dvh-60px)] w-1/2 flex-col justify-center items-center bg-background p-8">
         <motion.div
           key={activeWork.title}
           initial={{ opacity: 0, x: -20 }}
@@ -85,10 +84,10 @@ export default function Works() {
           {activeWork.images && <WorkCarousel images={activeWork.images} />}
 
           {activeWork.technologies && (
-            <div className="flex gap-3 flex-wrap mt-3">
+            <div className="flex gap-7 mx-1 flex-wrap mt-6">
               {activeWork.technologies.map((tech) => (
                 <div
-                  className=" gap-x-2 flex items-center px-4 py-3 rounded-md group"
+                  className=" gap-x-2 flex items-center rounded-md group"
                   key={tech}
                 >
                   <img
@@ -108,7 +107,7 @@ export default function Works() {
       </div>
 
       {/* RIGHT SIDE (DESKTOP SCROLL AREA) */}
-      <div className="hidden md:block w-1/2 p-8 space-y-6 works-scroll-area overflow-y-auto">
+      <div className="hidden lg:block w-1/2 p-8 space-y-6 works-scroll-area overflow-y-auto">
         {works.map((work, i) => {
           if (work?.header)
             return (
@@ -174,7 +173,7 @@ export default function Works() {
       </div>
 
       {/* ===== MOBILE ACCORDION ===== */}
-      <div className="block md:hidden px-4">
+      <div className="block lg:hidden px-4 max-w-[95dvw] mx-auto">
         <Accordion
           variant="splitted"
           itemClasses={{
@@ -185,13 +184,13 @@ export default function Works() {
         data-[open=true]:bg-primary/10 data-[open=true]:border-primary
       `,
             // title row wrapper
-            titleWrapper: "flex  py-3 px-2",
+            titleWrapper: "flex py-3 px-2 ",
             // title text
             title: "font-semibold text-base text-default-900",
             // subtitle text (period—place)
             subtitle: "text-xs text-default-500 mt-0.5",
             // content area
-            content: "text-default-700 pt-2 pb-4 px-4",
+            content: "text-default-700 pt-2 pb-4 px-4 ",
             // indicator (chevron)
             indicator: "text-default-500 data-[open=true]:text-primary",
           }}
@@ -279,7 +278,7 @@ export default function Works() {
                   </p>
 
                   {work.images && (
-                    <div className="rounded-md overflow-hidden">
+                    <div className="rounded-md overflow-hidden ">
                       <WorkCarousel images={work.images} />
                     </div>
                   )}
@@ -301,9 +300,9 @@ export default function Works() {
                             alt={tech}
                             className={`
                               "w-5 h-5 opacity-70 group-hover:opacity-100 transition",
-                              techIcons[tech].needsInvertion
+                              ${techIcons[tech].needsInvertion
                                 ? "dark:invert"
-                                : ""
+                                : ""}
                             `}
                           />
                           <span className="text-xs text-default-800 font-medium">
@@ -335,21 +334,15 @@ const responsive = {
   },
 };
 
-function WorkCarousel({
-  images,
-}: WorkCarouselProps) {
-
-
+function WorkCarousel({ images }: WorkCarouselProps) {
   const CustomDot = ({ onClick, active }: any) => {
     return (
       <button
-      onClick={onClick}
-      className={`w-3 h-1 mx-1 rounded-full transition-all duration-300 ${
-        active
-          ? "bg-primary scale-110"
-          : "bg-default-800 hover:bg-primary"
-      }`}
-    />
+        onClick={onClick}
+        className={`w-3 h-1 mx-1 rounded-full transition-all duration-300 ${
+          active ? "bg-primary scale-110" : "bg-default-800 hover:bg-primary"
+        }`}
+      />
     );
   };
 
@@ -360,7 +353,7 @@ function WorkCarousel({
         infinite
         autoPlay
         autoPlaySpeed={3000}
-        transitionDuration={400}          
+        transitionDuration={400}
         arrows
         customDot={<CustomDot />}
         showDots
@@ -369,7 +362,7 @@ function WorkCarousel({
         swipeable
         keyBoardControl
         containerClass="w-full"
-        itemClass="px-1"                  
+        itemClass="px-1"
         customLeftArrow={
           <button
             className="
@@ -398,16 +391,18 @@ function WorkCarousel({
         {images.map((img, i) => (
           <div
             key={i}
-            className="w-full overflow-hidden rounded-sm"
-
+            className="
+                      h-full
+                      w-full"
           >
             <img
               src={img}
               alt={`img-${i}`}
               className="
-                h-full
+                lg:h-full
+                h-32
                 w-full
-                aspect-video
+                lg:aspect-video
                 object-cover
                 rounded-sm
               "

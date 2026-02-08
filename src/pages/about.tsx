@@ -179,7 +179,7 @@ export default function About() {
           <div className="absolute inset-0 bg-gradient-to-t from-background/100 to-background/0" />
         </div>
       </div>
-      <div className="px-12 sm:px-0 grid grid-cols-1 space-y-8 lg:space-y-0 py-8 lg:pt-0 lg:grid-cols-2 place-items-center flex-1 lg:w-4/5">
+      <div className="px-12 sm:px-0 grid grid-cols-1 space-y-12 lg:space-y-0 py-8 lg:pt-0 lg:grid-cols-2 place-items-center flex-1 lg:w-4/5">
         {/* Education */}
         <motion.div
           className="text-default-700 md:text-base flex-none text-left leading-relaxed max-w-xl lg:max-w-full"
@@ -192,7 +192,7 @@ export default function About() {
           </div>
           <div className="flex items-start pl-2 pt-2">
             <img alt="Telkom University" src={telkom} className="h-12 pt-2" />
-            <div className="rounded-xl bg-background/70 backdrop-blur-sm px-5 shadow-sm">
+            <div className="rounded-xl px-5 ">
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <div className="text-lg font-semibold text-default-900">

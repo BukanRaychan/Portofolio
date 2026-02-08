@@ -1,6 +1,17 @@
 export const works = [
   { header: "Experience" },
   {
+    title: "Digital Research Assistant",
+    position: "Academic Leadership Corporate Enabler & General Manager Division",
+    place: "Bank Indonesia Institute (BINS)",
+    place_logo : "/companies/bi.png",
+    period: "Feb 2026 – Dec 2026",
+    description:
+      "Manages and maps the Digital Leadership curriculum by aligning technical training sessions—covering Data Science, Cybersecurity, and Business Innovation—with institutional competency frameworks to ensure strategic coherence across different organizational levels",
+    technologies: ["excel"],
+    // images: ["/works/showup1.png", "/works/showup2.png"],
+  },
+  {
     title: "Backend Engineer Intern — ShowUp",
     position: "Backend Engineer Intern",
     link: "https://showup.cloud",

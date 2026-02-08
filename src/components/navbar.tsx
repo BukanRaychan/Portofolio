@@ -36,9 +36,9 @@ export const Navbar = () => {
         item: "!py-0",
       }}
     >
-      <NavbarContent className="basis-1/5 sm:basis-full flex gap-16" justify="start">
+      <NavbarContent className="basis-1/5 md:basis-full flex gap-16" justify="start">
         <img src={logo} alt={"Logo"} className={`w-8 scale-auto`} />
-        <div className="hidden sm:flex gap-16 justify-center">
+        <div className="hidden md:flex gap-16 justify-center">
           {siteConfig.navItems.map((item) => (
             <NavbarItem key={item.href} className="!py-0">
               <Link
@@ -61,7 +61,7 @@ export const Navbar = () => {
         </div>
       </NavbarContent>
 
-      <NavbarContent className="basis-full flex sm:hidden" >
+      <NavbarContent className="basis-full flex md:hidden" >
         <div className="mx-auto">
           <Button
             className=""
@@ -78,10 +78,10 @@ export const Navbar = () => {
       </NavbarContent>
 
       <NavbarContent
-        className="hidden sm:flex basis-1/5 sm:basis-full "
+        className="hidden md:flex basis-1/5 md:basis-full "
         justify="end"
       >
-        <NavbarItem className="hidden sm:flex gap-2">
+        <NavbarItem className="hidden md:flex gap-2">
           <ThemeSwitch className="hidden absolute" />
           <Button
             as="a"
@@ -96,9 +96,9 @@ export const Navbar = () => {
         </NavbarItem>
       </NavbarContent>
 
-      <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
+      <NavbarContent className="md:hidden basis-1 pl-4" justify="end">
         <ThemeSwitch className="hidden absolute" />
-        <NavbarMenuToggle />
+        <NavbarMenuToggle icon="" />
       </NavbarContent>
 
       <NavbarMenu>
