@@ -58,7 +58,7 @@ const interests = [
   "Data Engineering",
   "Gym",
   "Traveling",
-  "Game Online (Roblox)",
+  "Game",
 ];
 
 type ChipColor =
