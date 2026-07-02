@@ -197,8 +197,8 @@ function WorkImages({ work }: { work: Work }) {
           <Field label="Image URL">
             <Input name="image_url" placeholder="https://…" />
           </Field>
-          <Field label="…or upload image (takes priority)">
-            <FileInput name="image_file" />
+          <Field label="…or upload image(s) — drop multiple to add at once">
+            <FileInput name="image_file" multiple />
           </Field>
         </div>
         <SaveButton>Add image</SaveButton>

@@ -3,7 +3,9 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   experimental: {
     serverActions: {
-      bodySizeLimit: '5mb',
+      // Multi-image drops can be several MB each; keep headroom so the form
+      // body isn't truncated (which silently drops fields like work_id).
+      bodySizeLimit: '100mb',
     },
   },
   images: {

@@ -215,21 +215,44 @@ export async function addWorkImage(
   formData: FormData,
 ): Promise<ActionResult> {
   return run(async (supabase) => {
-    const workId = String(formData.get("work_id"));
-    const uploaded = await uploadIfPresent(supabase, formData.get("image_file"));
-    const url = uploaded ?? str(formData.get("image_url"));
-    if (!url) throw new Error("Provide an image URL or upload a file");
-    const { data } = await supabase
+    const workId = str(formData.get("work_id"));
+    if (!workId) throw new Error("Missing work — try reopening the item");
+
+    // Support dropping/selecting multiple files, plus an optional pasted URL.
+    const urls: string[] = [];
+    for (const entry of formData.getAll("image_file")) {
+      const uploaded = await uploadIfPresent(supabase, entry);
+      if (uploaded) urls.push(uploaded);
+    }
+    const manualUrl = str(formData.get("image_url"));
+    if (manualUrl) urls.push(manualUrl);
+    if (urls.length === 0)
+      throw new Error("Provide an image URL or upload a file");
+
+    const { data: work, error: selErr } = await supabase
       .from("works")
       .select("images")
       .eq("id", workId)
       .single();
-    await supabase
+    if (selErr || !work) {
+      await removeStorage(supabase, ...urls); // don't leave orphaned uploads
+      throw new Error("That work no longer exists");
+    }
+
+    // Verify the write actually landed (RLS/0-row updates return no error).
+    const { data: saved, error: updErr } = await supabase
       .from("works")
-      .update({ images: [...(data?.images ?? []), url] })
-      .eq("id", workId);
+      .update({ images: [...(work.images ?? []), ...urls] })
+      .eq("id", workId)
+      .select("id")
+      .single();
+    if (updErr || !saved) {
+      await removeStorage(supabase, ...urls);
+      throw new Error(updErr?.message ?? "Could not save images — not saved");
+    }
+
     done("/dashboard/works");
-    return "Image added";
+    return urls.length > 1 ? `${urls.length} images added` : "Image added";
   });
 }
 
