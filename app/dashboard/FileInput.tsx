@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type DragEvent } from "react";
 import { useFormStatus } from "react-dom";
-import { Paperclip, CheckCircle, UploadSimple } from "@phosphor-icons/react";
+import { PiPaperclip, PiCheckCircleFill, PiUploadSimpleBold } from "react-icons/pi";
 
 // File input with a "file selected" indicator, drag-and-drop, and optional
 // multi-file support. Clears itself when the surrounding form finishes
@@ -86,11 +86,11 @@ export function FileInput({
         onChange={(e) => setFiles(Array.from(e.target.files ?? []))}
       />
       {dragOver ? (
-        <UploadSimple weight="bold" className="size-4 shrink-0 text-accent" />
+        <PiUploadSimpleBold className="size-4 shrink-0 text-accent" />
       ) : count > 0 ? (
-        <CheckCircle weight="fill" className="size-4 shrink-0 text-accent" />
+        <PiCheckCircleFill className="size-4 shrink-0 text-accent" />
       ) : (
-        <Paperclip className="size-4 shrink-0 text-muted" />
+        <PiPaperclip className="size-4 shrink-0 text-muted" />
       )}
       <span
         className={`truncate ${count > 0 || dragOver ? "text-foreground" : "text-muted"}`}
