@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 import { motion, useReducedMotion, type Variants } from "motion/react";
-import { ArrowUpRight, LinkSimple } from "@phosphor-icons/react";
+import { PiArrowUpRightBold, PiLinkSimpleBold } from "react-icons/pi";
 import type { SocialLink } from "@/lib/database.types";
 
 export function Contact({
@@ -16,11 +16,18 @@ export function Contact({
 
   const container: Variants = {
     hidden: {},
-    show: { transition: { staggerChildren: reduce ? 0 : 0.08, delayChildren: 0.1 } },
+    show: { transition: { staggerChildren: reduce ? 0 : 0.08, delayChildren: 0.05 } },
   };
   const item: Variants = {
-    hidden: reduce ? { opacity: 0 } : { opacity: 0, y: 26 },
-    show: { opacity: 1, y: 0, transition: { type: "spring", duration: 0.7, bounce: 0.18 } },
+    hidden: reduce
+      ? { opacity: 0 }
+      : { opacity: 0, y: 26, filter: "blur(6px)" },
+    show: {
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      transition: { type: "spring", duration: 0.7, bounce: 0.12 },
+    },
   };
 
   return (
@@ -28,7 +35,8 @@ export function Contact({
       <motion.div
         variants={container}
         initial="hidden"
-        animate="show"
+        whileInView="show"
+        viewport={{ once: true }}
         className="flex flex-col items-center gap-8"
       >
         <motion.p
@@ -53,10 +61,7 @@ export function Contact({
           className="group inline-flex items-center gap-2 text-lg font-medium underline decoration-accent decoration-2 underline-offset-4 transition-transform duration-150 ease-out active:scale-[0.98] sm:text-2xl"
         >
           {email}
-          <ArrowUpRight
-            weight="bold"
-            className="size-5 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-          />
+          <PiArrowUpRightBold className="size-5 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </motion.a>
 
         {socials.length > 0 && (
@@ -79,10 +84,10 @@ export function Contact({
                     src={s.logo_url}
                     alt=""
                     aria-hidden
-                    className="size-5 object-contain opacity-40"
+                    className="size-5 object-contain opacity-50 transition-opacity duration-200 group-hover:opacity-100"
                   />
                 ) : (
-                  <LinkSimple weight="bold" className="size-5" />
+                  <PiLinkSimpleBold className="size-5" />
                 )}
               </a>
             ))}

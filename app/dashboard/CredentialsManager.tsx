@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { DotsSixVertical } from "@phosphor-icons/react";
+import { PiDotsSixVerticalBold } from "react-icons/pi";
 import type { AboutEntry, AboutKind } from "@/lib/database.types";
 import {
   saveAboutEntry,
@@ -110,7 +110,7 @@ function Column({
                           aria-label="Drag to reorder"
                           className="cursor-grab touch-none rounded-md p-1 text-muted transition-colors hover:text-foreground active:cursor-grabbing"
                         >
-                          <DotsSixVertical weight="bold" className="size-5" />
+                          <PiDotsSixVerticalBold className="size-5" />
                         </span>
                       }
                     >

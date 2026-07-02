@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { DotsSixVertical, SortAscending } from "@phosphor-icons/react";
+import { PiDotsSixVerticalBold, PiSortAscendingBold } from "react-icons/pi";
 import type { TechStack } from "@/lib/database.types";
 import { saveTech, deleteTech, reorderTech } from "./actions";
 import { Field, Input, SaveButton, InlineDelete, Card } from "./ui";
@@ -97,9 +97,9 @@ export function TechManager({ techs }: { techs: TechStack[] }) {
           <button
             type="button"
             onClick={sortAlpha}
-            className="inline-flex shrink-0 items-center gap-1.5 self-start rounded-full border border-border px-3 py-1.5 text-xs font-medium text-muted outline-none transition-[transform,color,border-color] duration-150 ease-[var(--ease-out)] hover:border-accent hover:text-accent active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-accent"
+            className="inline-flex shrink-0 items-center gap-1.5 self-start rounded-full border border-border px-3 py-1.5 text-xs font-medium text-muted outline-none transition-[transform,color,border-color] duration-150 ease-out hover:border-accent hover:text-accent active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-accent"
           >
-            <SortAscending weight="bold" className="size-4" />
+            <PiSortAscendingBold className="size-4" />
             Sort A–Z
           </button>
         )}
@@ -143,7 +143,7 @@ export function TechManager({ techs }: { techs: TechStack[] }) {
                             aria-label="Drag to reorder"
                             className="cursor-grab touch-none rounded-md p-1 text-muted transition-colors hover:text-foreground active:cursor-grabbing"
                           >
-                            <DotsSixVertical weight="bold" className="size-5" />
+                            <PiDotsSixVerticalBold className="size-5" />
                           </span>
                         }
                       >

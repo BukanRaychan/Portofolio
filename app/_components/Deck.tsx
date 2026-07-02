@@ -8,7 +8,11 @@ import {
   type PanInfo,
   type Variants,
 } from "motion/react";
-import { CaretDown, ArrowDown, ArrowUp } from "@phosphor-icons/react";
+import {
+  PiCaretDownBold,
+  PiArrowDownBold,
+  PiArrowUpBold,
+} from "react-icons/pi";
 import type { Portfolio } from "@/lib/data";
 import { Hero } from "./Hero";
 import { About } from "./About";
@@ -26,8 +30,8 @@ const SLIDES = [
 // mouse reports a different deltaY per notch, so counting ticks is consistent.
 // TICKS = notches past a slide edge before it flips. MIN_TICK_GAP debounces
 // trackpad inertia (many tiny events) so it can't inflate the count.
-const TICKS = 4;
-const MIN_TICK_GAP = 40;
+const TICKS = 3;
+const MIN_TICK_GAP = 75;
 
 export function Deck({ data }: { data: Portfolio }) {
   const reduce = useReducedMotion();
@@ -151,6 +155,7 @@ export function Deck({ data }: { data: Portfolio }) {
       name={settings.name}
       avatar={settings.avatar_url}
       onExplore={() => paginate(2)}
+      onContact={() => paginate(3)}
     />,
     <About
       key="about"
@@ -186,18 +191,11 @@ export function Deck({ data }: { data: Portfolio }) {
         onClick={() => setMenuOpen((o) => !o)}
         aria-label={menuOpen ? "Close menu" : "Open menu"}
         aria-expanded={menuOpen}
-        className={`absolute left-5 top-5 z-50 grid size-10 place-items-center rounded-full border 
-          shadow-sm backdrop-blur-xs  transition-[transform,background-color] 
-          duration-150 ease-out active:scale-[0.94] sm:left-8 sm:top-6 ${
-          menuOpen ? "border-border" : "border-border"
-        }`}
+        className="absolute left-5 top-5 z-50 bg-background/50 grid size-10 place-items-center rounded-full backdrop-blur-xs transition-transform duration-150 ease-out active:scale-[0.94] sm:left-8 sm:top-6"
       >
-        <CaretDown
-          weight="bold"
+        <PiCaretDownBold
           className={`size-5 transition-transform duration-200 ease-out ${
-            menuOpen
-              ? "rotate-180 text-background"
-              : "text-accent "
+            menuOpen ? "rotate-180 text-background" : "text-accent"
           }`}
         />
       </button>
@@ -230,13 +228,13 @@ export function Deck({ data }: { data: Portfolio }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 8 }}
             transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
-            className="pointer-events-none absolute bottom-20 left-1/2 z-30 flex -translate-x-1/2 flex-col items-center gap-2 sm:bottom-3.5"
+            className="pointer-events-none absolute left-1/2 z-30 flex -translate-x-1/2 flex-col items-center gap-2 bottom-3.5"
           >
             <span className="flex items-center gap-1.5 rounded-full border border-border bg-surface/90 px-3.5 py-1.5 text-xs font-medium backdrop-blur-md">
               {intent.dir > 0 ? (
-                <ArrowDown weight="bold" className="size-3.5 text-accent" />
+                <PiArrowDownBold className="size-3.5 text-accent" />
               ) : (
-                <ArrowUp weight="bold" className="size-3.5 text-accent" />
+                <PiArrowUpBold className="size-3.5 text-accent" />
               )}
               {SLIDES[index + intent.dir]?.label}
             </span>
@@ -292,7 +290,7 @@ export function Deck({ data }: { data: Portfolio }) {
       </nav>
 
       {/* Mobile bar — dots + active section title */}
-      <nav
+      {/* <nav
         className="absolute bottom-5 left-1/2 z-30 flex -translate-x-1/2 items-center gap-3 rounded-full border border-border bg-surface/90 px-4 py-2 backdrop-blur-md sm:hidden"
         aria-label="Sections"
       >
@@ -313,7 +311,7 @@ export function Deck({ data }: { data: Portfolio }) {
           ))}
         </span>
         <span className="text-sm font-medium">{SLIDES[index].label}</span>
-      </nav>
+      </nav> */}
 
       {/* Full-screen menu overlay */}
       <AnimatePresence>

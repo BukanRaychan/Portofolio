@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { CheckCircle, WarningCircle } from "@phosphor-icons/react";
+import { PiCheckCircleFill, PiWarningCircleFill } from "react-icons/pi";
 
 type Toast = { id: number; ok: boolean; message: string };
 
@@ -53,10 +53,9 @@ export function Toaster() {
             style={{ borderColor: t.ok ? "var(--border)" : "#e5484d" }}
           >
             {t.ok ? (
-              <CheckCircle weight="fill" className="size-5 shrink-0 text-accent" />
+              <PiCheckCircleFill className="size-5 shrink-0 text-accent" />
             ) : (
-              <WarningCircle
-                weight="fill"
+              <PiWarningCircleFill
                 className="size-5 shrink-0"
                 style={{ color: "#e5484d" }}
               />

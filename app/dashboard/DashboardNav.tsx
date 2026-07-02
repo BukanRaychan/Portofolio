@@ -9,7 +9,7 @@ import {
   useReducedMotion,
   type Variants,
 } from "motion/react";
-import { CaretDown, ArrowSquareOut, SignOut } from "@phosphor-icons/react";
+import { PiCaretDownBold, PiArrowSquareOutBold, PiSignOutBold } from "react-icons/pi";
 import { signOut } from "./actions";
 
 const NAV = [
@@ -107,12 +107,12 @@ export function DashboardNav({ user }: { user?: string }) {
             href="/"
             className="inline-flex w-fit items-center gap-1.5 text-muted transition-colors hover:text-foreground"
           >
-            <ArrowSquareOut weight="bold" className="size-4" />
+            <PiArrowSquareOutBold className="size-4" />
             View site
           </Link>
           <form action={signOut}>
             <button className="inline-flex w-fit items-center gap-1.5 text-muted transition-colors hover:text-accent">
-              <SignOut weight="bold" className="size-4" />
+              <PiSignOutBold className="size-4" />
               Sign out
             </button>
           </form>
@@ -126,7 +126,7 @@ export function DashboardNav({ user }: { user?: string }) {
           aria-label="Open menu"
           className="grid size-10 shrink-0 place-items-center rounded-full border border-border bg-surface/90 shadow-sm transition-transform duration-150 ease-out active:scale-[0.94]"
         >
-          <CaretDown weight="bold" className="size-5 text-accent" />
+          <PiCaretDownBold className="size-5 text-accent" />
         </button>
         <span className="truncate text-sm font-semibold">{activeLabel}</span>
       </div>
@@ -146,7 +146,7 @@ export function DashboardNav({ user }: { user?: string }) {
               aria-label="Close menu"
               className="absolute left-4 top-4 grid size-10 place-items-center rounded-full border border-accent-foreground/30 transition-transform duration-150 ease-out active:scale-[0.94]"
             >
-              <CaretDown weight="bold" className="size-5 rotate-180" />
+              <PiCaretDownBold className="size-5 rotate-180" />
             </button>
 
             <motion.nav

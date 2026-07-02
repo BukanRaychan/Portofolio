@@ -1,6 +1,7 @@
 "use client";
 
-import { GithubLogo, ArrowRight } from "@phosphor-icons/react";
+import { PiArrowRightBold } from "react-icons/pi";
+import { SiGithub } from "react-icons/si";
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import { createClient } from "@/lib/supabase/client";
 
@@ -86,14 +87,11 @@ export default function LoginPage() {
         <motion.button
           variants={item}
           onClick={signIn}
-          className="group inline-flex items-center gap-2.5 rounded-full bg-foreground px-6 py-3.5 text-base font-medium text-background outline-none transition-transform duration-150 ease-[var(--ease-out)] active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          className="group inline-flex items-center gap-2.5 rounded-full bg-foreground px-6 py-3.5 text-base font-medium text-background outline-none transition-transform duration-150 ease-out active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
-          <GithubLogo weight="fill" className="size-5" />
+          <SiGithub className="size-5" />
           Continue with GitHub
-          <ArrowRight
-            weight="bold"
-            className="size-4 transition-transform duration-200 ease-out group-hover:translate-x-1"
-          />
+          <PiArrowRightBold className="size-4 transition-transform duration-200 ease-out group-hover:translate-x-1" />
         </motion.button>
       </motion.div>
     </main>

@@ -56,6 +56,26 @@ body {
   display: none;
 }
 
+/* Overflow marquee: one long strip, translated by half (content is doubled) */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee {
+  animation: marquee 40s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    animation: none;
+  }
+}
+
+/* Outlined display type for decorative overflow text */
+.text-stroke {
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--foreground) 14%, transparent);
+  color: transparent;
+}
+
 /* Top progress bar: fills left→right, crawls toward the end while loading */
 @keyframes topload {
   0% { transform: scaleX(0); }

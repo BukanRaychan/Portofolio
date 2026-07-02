@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Paperclip, CheckCircle } from "@phosphor-icons/react";
+import { PiPaperclip, PiCheckCircleFill } from "react-icons/pi";
 
 // File input with a clear "file selected" indicator.
 export function FileInput({
@@ -30,9 +30,9 @@ export function FileInput({
         onChange={(e) => setFileName(e.target.files?.[0]?.name ?? null)}
       />
       {selected ? (
-        <CheckCircle weight="fill" className="size-4 shrink-0 text-accent" />
+        <PiCheckCircleFill className="size-4 shrink-0 text-accent" />
       ) : (
-        <Paperclip className="size-4 shrink-0 text-muted" />
+        <PiPaperclip className="size-4 shrink-0 text-muted" />
       )}
       <span className={`truncate ${selected ? "text-foreground" : "text-muted"}`}>
         {fileName ?? "Choose file"}

@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, type ReactNode } from "react";
-import { CaretDown } from "@phosphor-icons/react";
+import { PiCaretDownBold } from "react-icons/pi";
 
 // Exclusive accordion group: opening one item closes the rest.
 const Ctx = createContext<{ open: string | null; toggle: (id: string) => void }>(
@@ -38,9 +38,8 @@ export function Accordion({
           className="flex flex-1 items-center gap-3 text-left"
         >
           <span className="flex-1 font-medium">{title}</span>
-          <CaretDown
-            weight="bold"
-            className={`size-4 shrink-0 transition-transform duration-300 ease-[var(--ease-out)] ${
+          <PiCaretDownBold
+            className={`size-4 shrink-0 transition-transform duration-300 ease-out ${
               isOpen ? "rotate-180 text-accent" : "text-muted"
             }`}
           />
@@ -50,7 +49,7 @@ export function Accordion({
 
       {/* grid-rows 0fr→1fr gives a smooth, CSS-only height transition */}
       <div
-        className="grid transition-[grid-template-rows] duration-300 ease-[var(--ease-out)]"
+        className="grid transition-[grid-template-rows] duration-300 ease-out"
         style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
       >
         <div className="overflow-hidden">

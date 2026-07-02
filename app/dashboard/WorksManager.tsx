@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 import { useState } from "react";
-import { DotsSixVertical, SortAscending } from "@phosphor-icons/react";
+import { PiDotsSixVerticalBold, PiSortAscendingBold } from "react-icons/pi";
 import type { Work } from "@/lib/database.types";
 import {
   saveWork,
@@ -167,7 +167,7 @@ function WorkImages({ work }: { work: Work }) {
                       aria-label="Drag to reorder"
                       className="absolute left-1 top-1 grid size-6 cursor-grab touch-none place-items-center rounded-md bg-background/90 text-muted opacity-100 transition-opacity duration-150 active:cursor-grabbing sm:opacity-0 sm:group-hover:opacity-100"
                     >
-                      <DotsSixVertical weight="bold" className="size-4" />
+                      <PiDotsSixVerticalBold className="size-4" />
                     </span>
                     <ActionForm
                       action={deleteWorkImage}
@@ -175,7 +175,7 @@ function WorkImages({ work }: { work: Work }) {
                     >
                       <input type="hidden" name="work_id" value={work.id} />
                       <input type="hidden" name="url" value={url} />
-                      <button className="rounded-md bg-background/90 px-1.5 py-0.5 text-xs font-medium text-accent outline-none transition-transform duration-150 ease-[var(--ease-out)] active:scale-[0.94] focus-visible:ring-2 focus-visible:ring-accent">
+                      <button className="rounded-md bg-background/90 px-1.5 py-0.5 text-xs font-medium text-accent outline-none transition-transform duration-150 ease-out active:scale-[0.94] focus-visible:ring-2 focus-visible:ring-accent">
                         Delete
                       </button>
                     </ActionForm>
@@ -267,9 +267,9 @@ function Column({
           <button
             type="button"
             onClick={sortByEndDate}
-            className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-xs font-medium text-muted outline-none transition-[transform,color,border-color] duration-150 ease-[var(--ease-out)] hover:border-accent hover:text-accent active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-accent"
+            className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-xs font-medium text-muted outline-none transition-[transform,color,border-color] duration-150 ease-out hover:border-accent hover:text-accent active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-accent"
           >
-            <SortAscending weight="bold" className="size-4" />
+            <PiSortAscendingBold className="size-4" />
             End date
           </button>
         )}
@@ -291,7 +291,7 @@ function Column({
                           
                           className="cursor-grab touch-none rounded-md p-1 text-muted transition-colors hover:text-foreground active:cursor-grabbing"
                         >
-                          <DotsSixVertical weight="bold" className="size-5" />
+                          <PiDotsSixVerticalBold className="size-5" />
                         </span>
                       }
                     >

@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 import { useState } from "react";
-import { DotsSixVertical, LinkSimple } from "@phosphor-icons/react";
+import { PiDotsSixVerticalBold, PiLinkSimpleBold } from "react-icons/pi";
 import type { SocialLink } from "@/lib/database.types";
 import { saveSocial, deleteSocial, reorderSocial } from "./actions";
 import { Field, Input, SaveButton, InlineDelete, Card } from "./ui";
@@ -100,7 +100,7 @@ export function SocialManager({ links }: { links: SocialLink[] }) {
                                   className="size-5 object-contain"
                                 />
                               ) : (
-                                <LinkSimple weight="bold" className="size-4" />
+                                <PiLinkSimpleBold className="size-4" />
                               )}
                             </span>
                             {link.label}
@@ -112,7 +112,7 @@ export function SocialManager({ links }: { links: SocialLink[] }) {
                             aria-label="Drag to reorder"
                             className="cursor-grab touch-none rounded-md p-1 text-muted transition-colors hover:text-foreground active:cursor-grabbing"
                           >
-                            <DotsSixVertical weight="bold" className="size-5" />
+                            <PiDotsSixVerticalBold className="size-5" />
                           </span>
                         }
                       >

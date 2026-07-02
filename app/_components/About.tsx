@@ -3,15 +3,15 @@
 /* eslint-disable @next/next/no-img-element */
 import { type ReactNode } from "react";
 import { motion, useReducedMotion, type Variants } from "motion/react";
+import type { IconType } from "react-icons";
 import {
-  GraduationCap,
-  RocketLaunch,
-  Certificate,
-  Trophy,
-  UsersThree,
-  ArrowUpRight,
-  type Icon,
-} from "@phosphor-icons/react";
+  PiGraduationCapDuotone,
+  PiRocketLaunchDuotone,
+  PiCertificateDuotone,
+  PiTrophyDuotone,
+  PiUsersThreeDuotone,
+  PiArrowUpRightBold,
+} from "react-icons/pi";
 import type {
   TechStack,
   Education,
@@ -48,8 +48,17 @@ function SubChapter({
   color: string;
   children: ReactNode;
 }) {
+  const reduce = useReducedMotion();
   return (
-    <div className="flex flex-col gap-4">
+    <motion.div
+      initial={
+        reduce ? { opacity: 0 } : { opacity: 0, y: 22, filter: "blur(6px)" }
+      }
+      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ type: "spring", duration: 0.6, bounce: 0.12 }}
+      className="flex flex-col gap-4"
+    >
       <h3
         className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em]"
         style={{ color }}
@@ -58,17 +67,17 @@ function SubChapter({
         {title}
       </h3>
       <div className="flex flex-col gap-3">{children}</div>
-    </div>
+    </motion.div>
   );
 }
 
-function Tile({ color, icon: I }: { color: string; icon: Icon }) {
+function Tile({ color, icon: I }: { color: string; icon: IconType }) {
   return (
     <span
       className="mt-0.5 grid size-9 shrink-0 place-items-center rounded-xl border"
       style={{ borderColor: `${color}33`, color }}
     >
-      <I weight="duotone" className="size-4.5" />
+      <I className="size-4.5" />
     </span>
   );
 }
@@ -122,40 +131,40 @@ export function About({
     },
   ];
 
-  const container: Variants = {
-    hidden: {},
-    show: {
-      transition: { staggerChildren: reduce ? 0 : 0.06, delayChildren: 0.1 },
-    },
-  };
+  // Each block reveals itself as it scrolls into view — nothing below the
+  // fold plays unseen.
   const item: Variants = {
-    hidden: reduce ? { opacity: 0 } : { opacity: 0, y: 22 },
+    hidden: reduce
+      ? { opacity: 0 }
+      : { opacity: 0, y: 22, filter: "blur(6px)" },
     show: {
       opacity: 1,
       y: 0,
-      transition: { type: "spring", duration: 0.6, bounce: 0.15 },
+      filter: "blur(0px)",
+      transition: { type: "spring", duration: 0.6, bounce: 0.12 },
     },
+  };
+  const inView = {
+    variants: item,
+    initial: "hidden" as const,
+    whileInView: "show" as const,
+    viewport: { once: true, margin: "-40px" },
   };
 
   return (
     <section className="no-scrollbar h-full w-full overflow-y-auto px-6 py-20 sm:px-10">
-      <motion.div
-        variants={container}
-        initial="hidden"
-        animate="show"
-        className="mx-auto flex max-w-5xl flex-col gap-16"
-      >
+      <div className="mx-auto flex max-w-5xl flex-col gap-16">
         {/* Statement */}
         <div className="flex flex-col gap-6">
           <motion.p
-            variants={item}
+            {...inView}
             className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.25em] text-muted"
           >
             <span className="size-1.5 rounded-full bg-accent" />
             About
           </motion.p>
           <motion.h2
-            variants={item}
+            {...inView}
             className="max-w-4xl text-[clamp(1.75rem,4.5vw,3.5rem)] font-semibold leading-[1.08] tracking-tight"
           >
             {bio ?? "A software engineer who likes shipping things that work."}
@@ -164,7 +173,7 @@ export function About({
 
         {/* Stats */}
         <motion.div
-          variants={item}
+          {...inView}
           className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-3"
         >
           {stats.map((s) => (
@@ -181,7 +190,7 @@ export function About({
         {/* Left: credentials stacked in one column (empty ones hidden).
             Right: Tech + Interests. */}
         <div className="grid gap-12 md:grid-cols-2">
-          <motion.div variants={item} className="flex flex-col gap-10">
+          <div className="flex flex-col gap-10">
             {education.length > 0 && (
               <SubChapter title="Education" color={COLORS.education}>
                 {education.map((e) => (
@@ -191,7 +200,11 @@ export function About({
                   >
                     <Tile
                       color={COLORS.education}
-                      icon={e.is_external ? RocketLaunch : GraduationCap}
+                      icon={
+                        e.is_external
+                          ? PiRocketLaunchDuotone
+                          : PiGraduationCapDuotone
+                      }
                     />
                     <div className="min-w-0 flex-1">
                       <div className="flex flex-wrap items-center gap-2">
@@ -227,7 +240,7 @@ export function About({
                 <EntryList
                   entries={byKind("certification")}
                   color={COLORS.certification}
-                  icon={Certificate}
+                  icon={PiCertificateDuotone}
                 />
               </SubChapter>
             )}
@@ -236,7 +249,7 @@ export function About({
                 <EntryList
                   entries={byKind("achievement")}
                   color={COLORS.achievement}
-                  icon={Trophy}
+                  icon={PiTrophyDuotone}
                 />
               </SubChapter>
             )}
@@ -245,14 +258,14 @@ export function About({
                 <EntryList
                   entries={byKind("organization")}
                   color={COLORS.organization}
-                  icon={UsersThree}
+                  icon={PiUsersThreeDuotone}
                 />
               </SubChapter>
             )}
-          </motion.div>
+          </div>
 
           <div className="flex flex-col gap-10">
-            <motion.div variants={item}>
+            <motion.div {...inView}>
               <h3 className="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-muted">
                 Tech Stack
               </h3>
@@ -260,7 +273,7 @@ export function About({
                 {tech.map((t) => (
                   <span
                     key={t.id}
-                    className="inline-flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-sm font-medium transition-transform duration-200 ease-[var(--ease-out)] hover:-translate-y-0.5"
+                    className="inline-flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-sm font-medium transition-[transform,border-color] duration-200 ease-out hover:-translate-y-0.5 hover:border-accent/50"
                   >
                     {t.logo_url && (
                       <img
@@ -276,7 +289,7 @@ export function About({
               </div>
             </motion.div>
 
-            <motion.div variants={item}>
+            <motion.div {...inView}>
               <h3 className="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-muted">
                 Interests
               </h3>
@@ -293,7 +306,7 @@ export function About({
             </motion.div>
           </div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }
@@ -305,7 +318,7 @@ function EntryList({
 }: {
   entries: AboutEntry[];
   color: string;
-  icon: Icon;
+  icon: IconType;
 }) {
   if (!entries.length) {
     return <p className="text-sm text-muted/70">Nothing here yet.</p>;
@@ -354,7 +367,7 @@ function EntryList({
                 style={{ color }}
               >
                 View
-                <ArrowUpRight weight="bold" className="size-3.5" />
+                <PiArrowUpRightBold className="size-3.5" />
               </a>
             )}
           </div>

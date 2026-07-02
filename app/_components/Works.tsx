@@ -8,24 +8,16 @@ import {
   useState,
   type PointerEvent as ReactPointerEvent,
 } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import {
-  AnimatePresence,
-  motion,
-  useMotionValue,
-  useSpring,
-  useReducedMotion,
-} from "motion/react";
-import {
-  ArrowUpRight,
-  ArrowRight,
-  CaretDown,
-  CaretLeft,
-  CaretRight,
-  X,
-} from "@phosphor-icons/react";
-
-import { FaArrowRight } from "react-icons/fa";
-import { SiGithub} from "react-icons/si";
+  PiArrowUpRightBold,
+  PiArrowRightBold,
+  PiCaretDown,
+  PiCaretLeftBold,
+  PiCaretRightBold,
+  PiXBold,
+} from "react-icons/pi";
+import { SiGithub } from "react-icons/si";
 import type { TechStack, Work } from "@/lib/database.types";
 import { formatPeriod, isOngoing } from "@/lib/format";
 
@@ -128,7 +120,7 @@ function Carousel({
             if (drag.current.moved) return; // a drag, not a click
             onOpen(src);
           }}
-          className="group relative shrink-0 snap-start overflow-hidden rounded-xl border border-border outline-none transition-transform duration-150 ease-[var(--ease-out)] focus-visible:ring-2 focus-visible:ring-accent"
+          className="group relative shrink-0 snap-start overflow-hidden rounded-xl border border-border outline-none transition-transform duration-150 ease-out focus-visible:ring-2 focus-visible:ring-accent"
         >
           <img
             src={src}
@@ -187,7 +179,6 @@ export function Works({ works, tech }: { works: Work[]; tech: TechStack[] }) {
 
   const [tab, setTab] = useState<"experience" | "project">("experience");
   const [openId, setOpenId] = useState<string | null>(null);
-  const [hovered, setHovered] = useState<Work | null>(null);
   const [techFilter, setTechFilter] = useState<string[]>([]);
   const [page, setPage] = useState(1);
   const [fromExp, setFromExp] = useState<{ id: string; title: string } | null>(
@@ -197,15 +188,6 @@ export function Works({ works, tech }: { works: Work[]; tech: TechStack[] }) {
   const [lightbox, setLightbox] = useState<string | null>(null);
 
   const scrollRef = useRef<HTMLElement>(null);
-
-  // Only reveal the cursor-following preview once a real pointer move has set
-  // its position — otherwise it flashes at (0,0) when you scroll onto this
-  // slide with the cursor already resting over a row.
-  const [pointerMoved, setPointerMoved] = useState(false);
-  const mx = useMotionValue(0);
-  const my = useMotionValue(0);
-  const x = useSpring(mx, { stiffness: 250, damping: 28 });
-  const y = useSpring(my, { stiffness: 250, damping: 28 });
 
   // Clear the highlight flash after it has played.
   useEffect(() => {
@@ -254,8 +236,6 @@ export function Works({ works, tech }: { works: Work[]; tech: TechStack[] }) {
     currentPage * PAGE_SIZE,
   );
 
-  const preview = hovered?.images?.[0];
-
   function scrollTop() {
     requestAnimationFrame(() =>
       scrollRef.current?.scrollTo({
@@ -302,11 +282,6 @@ export function Works({ works, tech }: { works: Work[]; tech: TechStack[] }) {
     <section
       ref={scrollRef}
       className="no-scrollbar h-full w-full overflow-y-auto px-6 py-20 sm:px-10"
-      onMouseMove={(e) => {
-        mx.set(e.clientX + 24);
-        my.set(e.clientY - 80);
-        if (!pointerMoved) setPointerMoved(true);
-      }}
     >
       <div className="mx-auto max-w-5xl">
         <div className="mb-6 flex items-end justify-between gap-4">
@@ -319,7 +294,9 @@ export function Works({ works, tech }: { works: Work[]; tech: TechStack[] }) {
                 key={t}
                 onClick={() => selectTab(t)}
                 className={`rounded-full px-4 py-1.5 capitalize transition-colors duration-200 ${
-                  tab === t ? "bg-foreground text-background" : "text-muted"
+                  tab === t
+                    ? "bg-foreground text-background"
+                    : "text-muted hover:text-foreground"
                 }`}
               >
                 {t === "experience" ? "Experience" : "Projects"}
@@ -337,10 +314,10 @@ export function Works({ works, tech }: { works: Work[]; tech: TechStack[] }) {
                   setFromExp(null);
                   setPage(1);
                 }}
-                className="inline-flex items-center gap-1.5 rounded-full bg-accent px-3 py-1.5 text-xs font-medium text-accent-foreground outline-none transition-transform duration-150 ease-[var(--ease-out)] active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-accent"
+                className="inline-flex items-center gap-1.5 rounded-full bg-accent px-3 py-1.5 text-xs font-medium text-accent-foreground outline-none transition-transform duration-150 ease-out active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-accent"
               >
                 From: {fromExp.title}
-                <X weight="bold" className="size-3.5" />
+                <PiXBold className="size-3.5" />
               </button>
             )}
             {availableTechs.map((t) => {
@@ -350,7 +327,7 @@ export function Works({ works, tech }: { works: Work[]; tech: TechStack[] }) {
                   key={t.slug}
                   onClick={() => toggleTech(t.slug)}
                   aria-pressed={on}
-                  className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium outline-none transition-[transform,color,background-color,border-color] duration-150 ease-[var(--ease-out)] active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-accent ${
+                  className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium outline-none transition-[transform,color,background-color,border-color] duration-150 ease-out active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-accent ${
                     on
                       ? "border-accent bg-accent/10 text-accent"
                       : "border-border text-muted hover:border-accent hover:text-accent"
@@ -396,10 +373,16 @@ export function Works({ works, tech }: { works: Work[]; tech: TechStack[] }) {
               const isHi = highlight.includes(work.id);
               const relatedCount = projectCountByExp.get(work.id) ?? 0;
               return (
-                <li
+                <motion.li
                   key={work.id}
-                  onMouseEnter={() => setHovered(work)}
-                  onMouseLeave={() => setHovered(null)}
+                  initial={reduce ? { opacity: 0 } : { opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-30px" }}
+                  transition={{
+                    duration: 0.45,
+                    ease: [0.23, 1, 0.32, 1],
+                    delay: Math.min(j * 0.05, 0.25),
+                  }}
                   className={`transition-[background-color,box-shadow] duration-700 ease-out ${
                     isHi
                       ? "bg-accent/6 shadow-[inset_3px_0_0_var(--accent)]"
@@ -429,10 +412,24 @@ export function Works({ works, tech }: { works: Work[]; tech: TechStack[] }) {
                       </span>
                       <TechRow slugs={work.technologies} techMap={techMap} />
                     </span>
+                    {/* Collapsed preview thumbnail — hands off to the
+                        carousel when the row expands */}
+                    {work.images[0] && (
+                      <img
+                        src={work.images[0]}
+                        alt=""
+                        aria-hidden
+                        className={`hidden shrink-0 self-center rounded-lg border object-cover transition-all duration-300 ease-out sm:block ${
+                          isOpen
+                            ? "h-0 w-0 border-transparent opacity-0"
+                            : "h-14 w-24 border-border opacity-100 group-hover:scale-[1.04]"
+                        }`}
+                      />
+                    )}
                     <span className="hidden shrink-0 pt-1 font-mono text-xs text-muted sm:block">
                       {formatPeriod(work.start_date, work.end_date)}
                     </span>
-                    <CaretDown
+                    <PiCaretDown
                       className={`mt-1 size-4 shrink-0 text-muted transition-transform duration-300 ease-out ${
                         isOpen ? "rotate-180" : ""
                       }`}
@@ -480,11 +477,11 @@ export function Works({ works, tech }: { works: Work[]; tech: TechStack[] }) {
                               <button
                                 type="button"
                                 onClick={() => seeRelatedProjects(work)}
-                                className="inline-flex w-fit items-center gap-1.5 w-full rounded-md bg-accent px-4 py-2 text-sm font-medium text-accent-foreground outline-none transition-transform duration-150 ease-out active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-accent"
+                                className="inline-flex w-fit items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-sm font-medium text-accent-foreground outline-none transition-transform duration-150 ease-out active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-accent"
                               >
                                 See {relatedCount} related project
                                 {relatedCount > 1 ? "s" : ""}
-                                <ArrowRight weight="bold" className="size-4" />
+                                <PiArrowRightBold className="size-4" />
                               </button>
                             ) : (
                               work.link && (
@@ -495,7 +492,7 @@ export function Works({ works, tech }: { works: Work[]; tech: TechStack[] }) {
                                   className="inline-flex w-fit items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition-transform duration-150 ease-out active:scale-[0.97]"
                                 >
                                   View Product
-                                  <ArrowUpRight weight="bold" className="size-4" />
+                                  <PiArrowUpRightBold className="size-4" />
                                 </a>
                               )
                             )
@@ -507,10 +504,10 @@ export function Works({ works, tech }: { works: Work[]; tech: TechStack[] }) {
                                     href={work.link}
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="inline-flex flex-1 items-center justify-center gap-1.5  rounded-md bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition-transform duration-150 ease-out active:scale-[0.97]"
+                                    className="inline-flex w-fit items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition-transform duration-150 ease-out active:scale-[0.97]"
                                   >
                                     View Product
-                                    <ArrowUpRight weight="bold" className="size-4" />
+                                    <PiArrowUpRightBold className="size-4" />
                                   </a>
                                 )}
                                 {work.github_link && (
@@ -518,11 +515,10 @@ export function Works({ works, tech }: { works: Work[]; tech: TechStack[] }) {
                                     href={work.github_link}
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="inline-flex flex-1 items-center relative justify-center bg-foreground gap-2 group rounded-md border border-border px-4 py-2 text-sm font-medium text-background transition-all duration-150 ease-out hover:border-border active:scale-[0.97] "
+                                    className="inline-flex w-fit items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-medium text-muted transition-[transform,color,border-color] duration-150 ease-out hover:border-foreground hover:text-foreground active:scale-[0.97]"
                                   >
                                     <SiGithub className="size-4" />
-                                    {/* <div className="opacity-0 top-0 absolute right-2 group-hover:opacity-100 transition-all duration-200 ease-out">&nbsp;<FaArrowRight className="size-4"/></div> */}
-                                    <div className="">&nbsp;GitHub</div>
+                                    GitHub
                                   </a>
                                 )}
                               </div>
@@ -532,7 +528,7 @@ export function Works({ works, tech }: { works: Work[]; tech: TechStack[] }) {
                       </motion.div>
                     )}
                   </AnimatePresence>
-                </li>
+                </motion.li>
               );
             })}
           </ul>
@@ -545,9 +541,9 @@ export function Works({ works, tech }: { works: Work[]; tech: TechStack[] }) {
               type="button"
               disabled={currentPage === 1}
               onClick={() => goToPage(currentPage - 1)}
-              className="inline-flex items-center gap-1 rounded-full border border-border px-3 py-1.5 text-muted outline-none transition-[transform,color,border-color] duration-150 ease-[var(--ease-out)] hover:border-accent hover:text-accent active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-accent disabled:pointer-events-none disabled:opacity-40"
+              className="inline-flex items-center gap-1 rounded-full border border-border px-3 py-1.5 text-muted outline-none transition-[transform,color,border-color] duration-150 ease-out hover:border-accent hover:text-accent active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-accent disabled:pointer-events-none disabled:opacity-40"
             >
-              <CaretLeft weight="bold" className="size-4" />
+              <PiCaretLeftBold className="size-4" />
               Prev
             </button>
             <span className="font-mono text-xs text-muted tabular-nums">
@@ -557,25 +553,14 @@ export function Works({ works, tech }: { works: Work[]; tech: TechStack[] }) {
               type="button"
               disabled={currentPage === pageCount}
               onClick={() => goToPage(currentPage + 1)}
-              className="inline-flex items-center gap-1 rounded-full border border-border px-3 py-1.5 text-muted outline-none transition-[transform,color,border-color] duration-150 ease-[var(--ease-out)] hover:border-accent hover:text-accent active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-accent disabled:pointer-events-none disabled:opacity-40"
+              className="inline-flex items-center gap-1 rounded-full border border-border px-3 py-1.5 text-muted outline-none transition-[transform,color,border-color] duration-150 ease-out hover:border-accent hover:text-accent active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-accent disabled:pointer-events-none disabled:opacity-40"
             >
               Next
-              <CaretRight weight="bold" className="size-4" />
+              <PiCaretRightBold className="size-4" />
             </button>
           </div>
         )}
       </div>
-
-      {/* Cursor-following preview (desktop, motion only) */}
-      {/* {!reduce && preview && pointerMoved && !lightbox && (
-        <motion.img
-          src={preview}
-          alt=""
-          aria-hidden
-          style={{ x, y }}
-          className="pointer-events-none fixed left-0 top-0 z-40 hidden h-40 w-64 rounded-xl border border-border object-cover shadow-2xl lg:block"
-        />
-      )} */}
 
       <AnimatePresence>
         {lightbox && (

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { DotsSixVertical } from "@phosphor-icons/react";
+import { PiDotsSixVerticalBold } from "react-icons/pi";
 import type { Education } from "@/lib/database.types";
 import { saveEducation, deleteEducation, reorderEducation } from "./actions";
 import { Field, Input, Textarea, SaveButton, InlineDelete, Card } from "./ui";
@@ -108,7 +108,7 @@ export function EducationManager({ items }: { items: Education[] }) {
                             aria-label="Drag to reorder"
                             className="cursor-grab touch-none rounded-md p-1 text-muted transition-colors hover:text-foreground active:cursor-grabbing"
                           >
-                            <DotsSixVertical weight="bold" className="size-5" />
+                            <PiDotsSixVerticalBold className="size-5" />
                           </span>
                         }
                       >
