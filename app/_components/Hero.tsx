@@ -100,10 +100,10 @@ export function Hero({
           {/* <div className="absolute inset-x-0 top-0 h-28 bg-linear-to-b from-background/70 to-transparent" /> */}
         </motion.div>
 
-        {/* Name — clears the deck's menu chip */}
+        {/* Name — clears the deck's menu chip
         <p className="absolute right-1/ 2 top-0 z-10 font-mono text-xs uppercase tracking-[0.25em] text-muted">
           {name}
-        </p>
+        </p> */}
 
         {/* Orbit — straddles the photo's right edge, slowly turning */}
         <motion.div
