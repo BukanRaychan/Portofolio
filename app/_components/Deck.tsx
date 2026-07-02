@@ -191,7 +191,10 @@ export function Deck({ data }: { data: Portfolio }) {
         onClick={() => setMenuOpen((o) => !o)}
         aria-label={menuOpen ? "Close menu" : "Open menu"}
         aria-expanded={menuOpen}
-        className="absolute left-5 top-5 z-50 bg-background/50 grid size-10 place-items-center rounded-full backdrop-blur-xs transition-transform duration-150 ease-out active:scale-[0.94] sm:left-8 sm:top-6"
+        className={`absolute left-5 top-5 z-50 
+        ${menuOpen ? "" : "bg-background/50" } grid size-10 place-items-center 
+        rounded-full backdrop-blur-xs transition-transform 
+        duration-150 ease-out active:scale-[0.94] sm:left-8 sm:top-6`}
       >
         <PiCaretDownBold
           className={`size-5 transition-transform duration-200 ease-out ${

@@ -101,7 +101,7 @@ export function Hero({
         </motion.div>
 
         {/* Name — clears the deck's menu chip */}
-        <p className="absolute right-0 top-0 z-10 font-mono text-xs uppercase tracking-[0.25em] text-muted">
+        <p className="absolute right-1/ 2 top-0 z-10 font-mono text-xs uppercase tracking-[0.25em] text-muted">
           {name}
         </p>
 
