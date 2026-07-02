@@ -68,9 +68,11 @@ function TechRow({
   );
 }
 
-// Horizontal carousel. Scrolls natively on touch/trackpad and drags with the
-// mouse (click-and-drag). A frame opens the lightbox — unless the pointer was
-// dragging, so a drag never triggers an accidental open.
+// Horizontal carousel. Scrolls natively on touch/trackpad, drags with the mouse
+// (click-and-drag), and on desktop gets prev/next arrows that page through
+// smoothly. Arrows fade in only when there's room to scroll that way, and edge
+// gradients hint at more off-screen. A frame opens the lightbox — unless the
+// pointer was dragging, so a drag never triggers an accidental open.
 function Carousel({
   images,
   onOpen,
@@ -78,8 +80,41 @@ function Carousel({
   images: string[];
   onOpen: (src: string) => void;
 }) {
+  const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const drag = useRef({ down: false, startX: 0, startScroll: 0, moved: false });
+  const [edges, setEdges] = useState({ left: false, right: false });
+
+  function updateEdges() {
+    const el = ref.current;
+    if (!el) return;
+    const { scrollLeft, scrollWidth, clientWidth } = el;
+    setEdges({
+      left: scrollLeft > 4,
+      right: scrollLeft < scrollWidth - clientWidth - 4,
+    });
+  }
+
+  useEffect(() => {
+    updateEdges();
+    const el = ref.current;
+    if (!el) return;
+    el.addEventListener("scroll", updateEdges, { passive: true });
+    window.addEventListener("resize", updateEdges);
+    return () => {
+      el.removeEventListener("scroll", updateEdges);
+      window.removeEventListener("resize", updateEdges);
+    };
+  }, [images]);
+
+  function page(dir: 1 | -1) {
+    const el = ref.current;
+    if (!el) return;
+    el.scrollBy({
+      left: dir * el.clientWidth * 0.85,
+      behavior: reduce ? "auto" : "smooth",
+    });
+  }
 
   function onPointerDown(e: ReactPointerEvent) {
     if (e.pointerType !== "mouse") return; // touch/pen already scroll natively
@@ -103,34 +138,93 @@ function Carousel({
     drag.current.down = false;
   }
 
+  const arrowBase =
+    "pointer-events-auto grid size-9 place-items-center rounded-full border border-border bg-background/85 text-muted shadow-lg backdrop-blur outline-none transition-[transform,color,border-color] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:border-foreground/30 hover:text-foreground active:scale-[0.9] focus-visible:ring-2 focus-visible:ring-accent";
+
   return (
-    <div
-      ref={ref}
-      onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerUp={endDrag}
-      onPointerLeave={endDrag}
-      className="no-scrollbar -mx-1 flex cursor-grab snap-x snap-mandatory gap-3 overflow-x-auto px-1 pb-1 select-none active:cursor-grabbing [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-    >
-      {images.map((src, i) => (
-        <button
-          key={i}
-          type="button"
-          onClick={() => {
-            if (drag.current.moved) return; // a drag, not a click
-            onOpen(src);
-          }}
-          className="group relative shrink-0 snap-start overflow-hidden rounded-xl border border-border outline-none transition-transform duration-150 ease-out focus-visible:ring-2 focus-visible:ring-accent"
-        >
-          <img
-            src={src}
-            alt=""
-            aria-hidden
-            draggable={false}
-            className="h-44 w-72 object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03] sm:h-52 sm:w-80"
-          />
-        </button>
-      ))}
+    <div className="relative -mx-1">
+      <div
+        ref={ref}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={endDrag}
+        onPointerLeave={endDrag}
+        className="no-scrollbar flex cursor-grab snap-x snap-mandatory gap-3 overflow-x-auto px-1 pb-1 select-none active:cursor-grabbing [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        {images.map((src, i) => (
+          <button
+            key={i}
+            type="button"
+            onClick={() => {
+              if (drag.current.moved) return; // a drag, not a click
+              onOpen(src);
+            }}
+            className="group relative shrink-0 snap-start overflow-hidden rounded-xl border border-border outline-none transition-transform duration-150 ease-out focus-visible:ring-2 focus-visible:ring-accent"
+          >
+            <img
+              src={src}
+              alt=""
+              aria-hidden
+              draggable={false}
+              className="h-44 w-72 object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03] sm:h-52 sm:w-80"
+            />
+          </button>
+        ))}
+      </div>
+
+      {/* Edge fades — hint that more images live off-screen. */}
+      <div
+        aria-hidden
+        className={`pointer-events-none absolute inset-y-0 left-0 w-6 bg-linear-to-r from-background to-transparent transition-opacity duration-200 ease-out ${
+          edges.left ? "opacity-100" : "opacity-0"
+        }`}
+      />
+      <div
+        aria-hidden
+        className={`pointer-events-none absolute inset-y-0 right-0 w-6 bg-linear-to-l from-background to-transparent transition-opacity duration-200 ease-out ${
+          edges.right ? "opacity-100" : "opacity-0"
+        }`}
+      />
+
+      {/* Desktop arrows — hidden on touch (native swipe/drag covers it). */}
+      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
+        <AnimatePresence>
+          {edges.left && (
+            <motion.button
+              key="prev"
+              type="button"
+              aria-label="Previous images"
+              onClick={() => page(-1)}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16, ease: [0.23, 1, 0.32, 1] }}
+              className={arrowBase}
+            >
+              <PiCaretLeftBold className="size-4" />
+            </motion.button>
+          )}
+        </AnimatePresence>
+      </div>
+      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+        <AnimatePresence>
+          {edges.right && (
+            <motion.button
+              key="next"
+              type="button"
+              aria-label="Next images"
+              onClick={() => page(1)}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.16, ease: [0.23, 1, 0.32, 1] }}
+              className={arrowBase}
+            >
+              <PiCaretRightBold className="size-4" />
+            </motion.button>
+          )}
+        </AnimatePresence>
+      </div>
     </div>
   );
 }
@@ -473,29 +567,30 @@ export function Works({ works, tech }: { works: Work[]; tech: TechStack[] }) {
 
                           {/* Actions */}
                           {tab === "experience" ? (
-                            relatedCount > 0 ? (
-                              <button
-                                type="button"
-                                onClick={() => seeRelatedProjects(work)}
-                                className="inline-flex w-fit items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-sm font-medium text-accent-foreground outline-none transition-transform duration-150 ease-out active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-accent"
-                              >
-                                See {relatedCount} related project
-                                {relatedCount > 1 ? "s" : ""}
-                                <PiArrowRightBold className="size-4" />
-                              </button>
-                            ) : (
-                              work.link && (
+                             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3"> 
+                              {relatedCount > 0 && (
+                                  <button
+                                    type="button"
+                                    onClick={() => seeRelatedProjects(work)}
+                                    className="inline-flex flex-1 justify-center items-center gap-1.5 rounded-md bg-accent px-4 py-2 text-sm font-medium text-accent-foreground outline-none transition-transform duration-150 ease-out active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-accent"
+                                  >
+                                    See {relatedCount} related project
+                                    {relatedCount > 1 ? "s" : ""}
+                                    <PiArrowRightBold className="size-4" />
+                                  </button>
+                              )}
+                              {work.link && (
                                 <a
                                   href={work.link}
                                   target="_blank"
                                   rel="noreferrer"
-                                  className="inline-flex w-fit items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition-transform duration-150 ease-out active:scale-[0.97]"
+                                  className="inline-flex flex-1 justify-center items-center gap-1.5 rounded-md bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition-transform duration-150 ease-out active:scale-[0.97]"
                                 >
                                   View Product
                                   <PiArrowUpRightBold className="size-4" />
                                 </a>
-                              )
-                            )
+                              )}
+                            </div>
                           ) : (
                             (work.link || work.github_link) && (
                               <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
@@ -504,7 +599,7 @@ export function Works({ works, tech }: { works: Work[]; tech: TechStack[] }) {
                                     href={work.link}
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="inline-flex w-fit items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition-transform duration-150 ease-out active:scale-[0.97]"
+                                    className="inline-flex basis-full items-center justify-center gap-1.5 rounded-md bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition-transform duration-150 ease-out active:scale-[0.97]"
                                   >
                                     View Product
                                     <PiArrowUpRightBold className="size-4" />
@@ -515,7 +610,7 @@ export function Works({ works, tech }: { works: Work[]; tech: TechStack[] }) {
                                     href={work.github_link}
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="inline-flex w-fit items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-medium text-muted transition-[transform,color,border-color] duration-150 ease-out hover:border-foreground hover:text-foreground active:scale-[0.97]"
+                                    className="inline-flex basis-full bg-foreground text-background items-center justify-center gap-2 rounded-md border border-border px-4 py-2 text-sm font-medium transition-[transform,color,border-color] duration-150 ease-out hover:text-background/90 active:scale-[0.97]"
                                   >
                                     <SiGithub className="size-4" />
                                     GitHub

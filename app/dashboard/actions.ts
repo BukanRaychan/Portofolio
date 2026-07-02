@@ -145,7 +145,6 @@ export async function saveWork(
     const place_logo_url = uploaded ?? str(formData.get("place_logo_url"));
     const category = str(formData.get("category")) ?? "project";
 
-    // sort_order is owned by drag-to-reorder, not the form. images too.
     const row = {
       category,
       title: str(formData.get("title")) ?? "",

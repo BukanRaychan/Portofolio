@@ -105,20 +105,6 @@ export function Hero({
           {name}
         </p> */}
 
-        {/* Orbit — straddles the photo's right edge, slowly turning */}
-        <motion.div
-          
-          transition={{ duration: 1.2, delay :0.4}}
-          className="pointer-events-none absolute left-[34%] top-[8%] z-10 hidden text-muted/40 md:block"
-        >
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 120, ease: "linear", repeat: Infinity }}
-          >
-            <Orbit className="size-[36vmin]" />
-          </motion.div>
-        </motion.div>
-
         {/* Content — headline crosses from the photo onto the paper field */}
         <motion.div
           variants={container}
@@ -129,8 +115,17 @@ export function Hero({
         >
           <motion.h1
             variants={item}
-            className="text-[clamp(2.75rem,9vw,8rem)] font-semibold leading-[1.05] tracking-tight"
+            className="text-[clamp(4.2rem,8vw,12rem)] font-semibold leading-[1.2] tracking-tight relative"
           >
+            {/* Orbit — straddles the photo's right edge, slowly turning */}
+            <motion.div
+              transition={{ duration: 1.2, delay: 0.4 }}
+              className="pointer-events-none absolute left-0 top-0 -translate-y-3/4 -z-10 text-muted/40"
+            >
+              <div className="animate-spin [animation-duration:120s] motion-reduce:animate-none">
+                <Orbit className="size-[clamp(9rem,18vw,48rem)]" />
+              </div>
+            </motion.div>
             {title.replace(/\.$/, "")}
             <br />
             <span className="marker">{role.replace(/\.$/, "")}</span>
@@ -163,7 +158,7 @@ export function Hero({
                   className="group inline-flex items-center gap-2 bg-accent px-2 text-base font-medium text-accent-foreground transition-transform duration-150 ease-out active:scale-[0.97]"
                 >
                   See my work
-                  <PiArrowRightBold className="size-4 transition-transform duration-200 ease-out group-hover:translate-x-1" />
+                  <PiArrowRightBold className="size-4 transition-transform duration-200 ease-out group-hover:translate-x-0.5" />
                 </button>
               )}
               {onContact && (

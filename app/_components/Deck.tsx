@@ -31,7 +31,7 @@ const SLIDES = [
 // TICKS = notches past a slide edge before it flips. MIN_TICK_GAP debounces
 // trackpad inertia (many tiny events) so it can't inflate the count.
 const TICKS = 3;
-const MIN_TICK_GAP = 75;
+const MIN_TICK_GAP = 120;
 
 export function Deck({ data }: { data: Portfolio }) {
   const reduce = useReducedMotion();
