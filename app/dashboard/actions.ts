@@ -102,7 +102,7 @@ export async function saveSettings(
   return run(async (supabase) => {
     const { data: prev } = await supabase
       .from("site_settings")
-      .select("avatar_url")
+      .select("avatar_url, logo_url")
       .eq("id", 1)
       .single();
 
@@ -111,6 +111,12 @@ export async function saveSettings(
       formData.get("avatar_file"),
     );
     const avatar_url = uploadedAvatar ?? str(formData.get("avatar_url"));
+
+    const uploadedLogo = await uploadIfPresent(
+      supabase,
+      formData.get("logo_file"),
+    );
+    const logo_url = uploadedLogo ?? str(formData.get("logo_url"));
 
     await supabase
       .from("site_settings")
@@ -121,6 +127,7 @@ export async function saveSettings(
         hero_subtitle: str(formData.get("hero_subtitle")) ?? "",
         bio: str(formData.get("bio")),
         avatar_url,
+        logo_url,
         email: str(formData.get("email")) ?? "",
         interests: toArray(formData.get("interests")),
       })
@@ -128,6 +135,9 @@ export async function saveSettings(
 
     if (prev?.avatar_url && prev.avatar_url !== avatar_url) {
       await removeStorage(supabase, prev.avatar_url);
+    }
+    if (prev?.logo_url && prev.logo_url !== logo_url) {
+      await removeStorage(supabase, prev.logo_url);
     }
     done();
     return "Settings saved";

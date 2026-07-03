@@ -100,6 +100,7 @@ export type Database = {
           hero_title: string
           id: number
           interests: string[]
+          logo_url: string | null
           name: string
           socials: Json
           updated_at: string
@@ -113,6 +114,7 @@ export type Database = {
           hero_title: string
           id?: number
           interests?: string[]
+          logo_url?: string | null
           name: string
           socials?: Json
           updated_at?: string
@@ -126,6 +128,7 @@ export type Database = {
           hero_title?: string
           id?: number
           interests?: string[]
+          logo_url?: string | null
           name?: string
           socials?: Json
           updated_at?: string

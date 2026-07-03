@@ -45,6 +45,14 @@ export default async function SettingsPage() {
             <FileInput name="avatar_file" />
           </Field>
         </div>
+        <div className="grid gap-5 sm:grid-cols-2">
+          <Field label="Logo URL (brand mark, e.g. login page)">
+            <Input name="logo_url" defaultValue={data.logo_url ?? ""} />
+          </Field>
+          <Field label="…or upload logo">
+            <FileInput name="logo_file" />
+          </Field>
+        </div>
         <Field label="Interests (comma or newline separated)">
           <Textarea name="interests" defaultValue={data.interests.join(", ")} />
         </Field>
