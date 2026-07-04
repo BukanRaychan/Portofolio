@@ -315,10 +315,13 @@ export function Works({ works, tech }: { works: Work[]; tech: TechStack[] }) {
     let list = tabItems;
     if (tab === "project" && fromExp)
       list = list.filter((w) => w.experience_id === fromExp.id);
-    // AND: a work must use every selected tech.
+    // One pick (default) is OR; a multi-select (Shift, 2+ picks) is AND —
+    // the work must use every selected tech.
     if (techFilter.length)
       list = list.filter((w) =>
-        techFilter.every((s) => w.technologies.includes(s)),
+        techFilter.length > 1
+          ? techFilter.every((s) => w.technologies.includes(s))
+          : w.technologies.includes(techFilter[0]),
       );
     return list;
   }, [tabItems, tab, fromExp, techFilter]);
@@ -347,10 +350,16 @@ export function Works({ works, tech }: { works: Work[]; tech: TechStack[] }) {
     setPage(1);
   }
 
-  function toggleTech(slug: string) {
-    setTechFilter((prev) =>
-      prev.includes(slug) ? prev.filter((s) => s !== slug) : [...prev, slug],
-    );
+  // Single-select by default (click replaces, or clears if it's the active one).
+  // Shift-click is additive → multi-select (OR filter across the picks).
+  function toggleTech(slug: string, additive: boolean) {
+    setTechFilter((prev) => {
+      if (additive)
+        return prev.includes(slug)
+          ? prev.filter((s) => s !== slug)
+          : [...prev, slug];
+      return prev.length === 1 && prev[0] === slug ? [] : [slug];
+    });
     setPage(1);
   }
 
@@ -382,17 +391,28 @@ export function Works({ works, tech }: { works: Work[]; tech: TechStack[] }) {
           <h2 className="text-[clamp(2rem,5vw,3.5rem)] font-semibold leading-none tracking-tight">
             Selected <span className="marker">work</span>
           </h2>
-          <div className="flex gap-1 rounded-full border border-border p-1 text-sm">
+          <div className="flex rounded-full border border-border p-1 text-xs sm:text-sm">
             {(["experience", "project"] as const).map((t) => (
               <button
                 key={t}
                 onClick={() => selectTab(t)}
-                className={`rounded-full px-4 py-1.5 capitalize transition-colors duration-200 ${
+                className={`relative rounded-full px-4 py-1.5 capitalize outline-none transition-colors duration-200 ease-out focus-visible:ring-2 focus-visible:ring-accent active:scale-[0.97] ${
                   tab === t
-                    ? "bg-foreground text-background"
+                    ? "text-accent-foreground"
                     : "text-muted hover:text-foreground"
                 }`}
               >
+                {tab === t && (
+                  <motion.span
+                    layoutId="worksTabPill"
+                    transition={
+                      reduce
+                        ? { duration: 0 }
+                        : { type: "spring", duration: 0.4, bounce: 0.18 }
+                    }
+                    className="absolute inset-0 -z-10 rounded-full bg-accent"
+                  />
+                )}
                 {t === "experience" ? "Experience" : "Projects"}
               </button>
             ))}
@@ -419,7 +439,7 @@ export function Works({ works, tech }: { works: Work[]; tech: TechStack[] }) {
               return (
                 <button
                   key={t.slug}
-                  onClick={() => toggleTech(t.slug)}
+                  onClick={(e) => toggleTech(t.slug, e.shiftKey)}
                   aria-pressed={on}
                   className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium outline-none transition-[transform,color,background-color,border-color] duration-150 ease-out active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-accent ${
                     on
@@ -451,6 +471,15 @@ export function Works({ works, tech }: { works: Work[]; tech: TechStack[] }) {
               >
                 Clear
               </button>
+            )}
+            {availableTechs.length > 1 && (
+              <span className="inline-flex items-center gap-1 text-xs text-muted/70">
+                Hold
+                <kbd className="rounded border border-border bg-background px-1.5 py-0.5 font-mono text-[10px] font-medium text-foreground">
+                  Shift
+                </kbd>
+                to pick several
+              </span>
             )}
           </div>
         )}
@@ -544,7 +573,10 @@ export function Works({ works, tech }: { works: Work[]; tech: TechStack[] }) {
                         exit={
                           reduce ? { opacity: 0 } : { height: 0, opacity: 0 }
                         }
-                        transition={{ duration: 0.32, ease: [0.32, 0.72, 0, 1] }}
+                        transition={{
+                          duration: 0.32,
+                          ease: [0.32, 0.72, 0, 1],
+                        }}
                         className="overflow-hidden"
                       >
                         <div className="flex flex-col gap-5 pb-7 pl-3 pr-1">
@@ -567,17 +599,17 @@ export function Works({ works, tech }: { works: Work[]; tech: TechStack[] }) {
 
                           {/* Actions */}
                           {tab === "experience" ? (
-                             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3"> 
+                            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
                               {relatedCount > 0 && (
-                                  <button
-                                    type="button"
-                                    onClick={() => seeRelatedProjects(work)}
-                                    className="inline-flex flex-1 justify-center items-center gap-1.5 rounded-md bg-accent px-4 py-2 text-sm font-medium text-accent-foreground outline-none transition-transform duration-150 ease-out active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-accent"
-                                  >
-                                    See {relatedCount} related project
-                                    {relatedCount > 1 ? "s" : ""}
-                                    <PiArrowRightBold className="size-4" />
-                                  </button>
+                                <button
+                                  type="button"
+                                  onClick={() => seeRelatedProjects(work)}
+                                  className="inline-flex flex-1 justify-center items-center gap-1.5 rounded-md bg-accent px-4 py-2 text-sm font-medium text-accent-foreground outline-none transition-transform duration-150 ease-out active:scale-[0.97] focus-visible:ring-2 focus-visible:ring-accent"
+                                >
+                                  See {relatedCount} related project
+                                  {relatedCount > 1 ? "s" : ""}
+                                  <PiArrowRightBold className="size-4" />
+                                </button>
                               )}
                               {work.link && (
                                 <a
